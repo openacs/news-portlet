@@ -32,15 +32,20 @@
 <% set new_package_id $news_items(package_id) %>
 
     <if @one_instance_p@ false and @new_package_id@ ne @old_package_id@ and @old_package_id@ ne "">
-        <br>
       </ul>
     </if>
 
     <if @one_instance_p@ false and @new_package_id@ ne @old_package_id@>
-      <li>@news_items.parent_name@
+      @news_items.parent_name@
       <ul>
     </if>
 
+<if @news_items:rowcount@ eq 1>
+	<include src=summary 
+	item_id=@news_items.item_id@ 
+	url=@news_items.url@?item_id=@news_items.item_id@>
+</if>
+<else>
       <li>
         <a href="@news_items.url@item?item_id=@news_items.item_id@">@news_items.publish_title@</a>
         <small>(@news_items.publish_date@)</small>
@@ -49,7 +54,7 @@
 <%
     set old_package_id $new_package_id
 %>
-
+</else>
 </multiple>
 
   </if>

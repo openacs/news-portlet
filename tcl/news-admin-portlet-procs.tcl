@@ -61,6 +61,7 @@ namespace eval news_admin_portlet {
         return [portal::add_element_parameters \
             -portal_id $portal_id \
             -portlet_name [get_my_name] \
+            -page_name $page_name \
             -key package_id \
             -value $package_id
         ]

@@ -21,7 +21,7 @@ begin
   begin 
     select datasource_id into ds_id
       from portal_datasources
-     where name = 'news-portlet';
+     where name = 'news_portlet';
    exception when no_data_found then
      ds_id := null;
   end;
@@ -41,69 +41,69 @@ begin
 	-- drop the hooks
 	foo := acs_sc_impl.delete_alias (
 	       'portal_datasource',
-	       'news-portlet',
+	       'news_portlet',
 	       'MyName'
 	);
 
 	foo := acs_sc_impl.delete_alias (
 	       'portal_datasource',
-	       'news-portlet',
+	       'news_portlet',
 	       'GetPrettyName'
 	);
 
 
 	foo := acs_sc_impl.delete_alias (
 	       'portal_datasource',
-	       'news-portlet',
+	       'news_portlet',
 	       'Link'
 	);
 
 	foo := acs_sc_impl.delete_alias (
 	       'portal_datasource',
-	       'news-portlet',
+	       'news_portlet',
 	       'AddSelfToPage'
 	);
 
 	foo := acs_sc_impl.delete_alias (
 	       'portal_datasource',
-	       'news-portlet',
+	       'news_portlet',
 	       'Show'
 	);
 
 	foo := acs_sc_impl.delete_alias (
 	       'portal_datasource',
-	       'news-portlet',
+	       'news_portlet',
 	       'Edit'
 	);
 
 	foo := acs_sc_impl.delete_alias (
 	       'portal_datasource',
-	       'news-portlet',
+	       'news_portlet',
 	       'RemoveSelfFromPage'
 	);
 
 	foo := acs_sc_impl.delete_alias (
 	       'portal_datasource',
-	       'news-portlet',
+	       'news_portlet',
 	       'MakeSelfAvailable'
 	);
 
 	foo := acs_sc_impl.delete_alias (
 	       'portal_datasource',
-	       'news-portlet',
+	       'news_portlet',
 	       'MakeSelfUnavailable'
 	);
 
 	-- Drop the binding
 	acs_sc_binding.delete (
 	    contract_name => 'portal_datasource',
-	    impl_name => 'news-portlet'
+	    impl_name => 'news_portlet'
 	);
 
 	-- drop the impl
 	foo := acs_sc_impl.delete (
 		'portal_datasource',
-		'news-portlet'
+		'news_portlet'
 	);
 end;
 /

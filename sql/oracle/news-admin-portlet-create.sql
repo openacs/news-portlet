@@ -1,12 +1,13 @@
 --
--- /news-portlet/sql/oracle/news-portlet-create.sql
+-- /news-portlet/sql/oracle/news-admin-portlet-create.sql
 --
 
--- Creates news portlet
+-- Creates news admin portlet
 
 -- Copyright (C) 2001 OpenForce, Inc.
 -- @author Arjun Sanyal (arjun@openforce.net)
--- @creation-date 2001-30-09
+-- @author Ben Adida (Ben@openforce.net)
+-- @creation-date 2002-01-19
 
 -- $Id$
 
@@ -18,8 +19,8 @@ declare
   ds_id portal_datasources.datasource_id%TYPE;
 begin
   ds_id := portal_datasource.new(
-    name             => 'news_portlet',
-    description      => 'News portlet'
+    name             => 'news_admin_portlet',
+    description      => 'News Admin portlet'
   );
 
   --  the standard 4 params
@@ -30,7 +31,7 @@ begin
 	config_required_p => 't',
 	configured_p => 't',
 	key => 'shadeable_p',
-	value => 't'
+	value => 'f'
 );	
 
 
@@ -40,7 +41,7 @@ begin
 	config_required_p => 't',
 	configured_p => 't',
 	key => 'hideable_p',
-	value => 't'
+	value => 'f'
 );	
 
   -- user_editable_p 
@@ -70,7 +71,7 @@ begin
 	value => 't'
 );  
 
--- news-specific params
+-- news_admin-specific params
 
   -- community_id must be configured
   portal_datasource.set_def_param (
@@ -92,8 +93,8 @@ begin
 	-- create the implementation
 	foo := acs_sc_impl.new (
 		'portal_datasource',
-		'news_portlet',
-		'news_portlet'
+		'news_admin_portlet',
+		'news_admin_portlet'
 	);
 
 end;
@@ -106,73 +107,73 @@ begin
 	-- add all the hooks
 	foo := acs_sc_impl.new_alias (
 	       'portal_datasource',
-	       'news_portlet',
+	       'news_admin_portlet',
 	       'MyName',
-	       'news_portlet::my_name',
+	       'news_admin_portlet::my_name',
 	       'TCL'
 	);
 
 	foo := acs_sc_impl.new_alias (
 	       'portal_datasource',
-	       'news_portlet',
+	       'news_admin_portlet',
 	       'GetPrettyName',
-	       'news_portlet::get_pretty_name',
+	       'news_admin_portlet::get_pretty_name',
 	       'TCL'
 	);
 
 	foo := acs_sc_impl.new_alias (
 	       'portal_datasource',
-	       'news_portlet',
+	       'news_admin_portlet',
 	       'Link',
-	       'news_portlet::link',
+	       'news_admin_portlet::link',
 	       'TCL'
 	);
 
 	foo := acs_sc_impl.new_alias (
 	       'portal_datasource',
-	       'news_portlet',
+	       'news_admin_portlet',
 	       'AddSelfToPage',
-	       'news_portlet::add_self_to_page',
+	       'news_admin_portlet::add_self_to_page',
 	       'TCL'
 	);
 
 	foo := acs_sc_impl.new_alias (
 	       'portal_datasource',
-	       'news_portlet',
+	       'news_admin_portlet',
 	       'Show',
-	       'news_portlet::show',
+	       'news_admin_portlet::show',
 	       'TCL'
 	);
 
 	foo := acs_sc_impl.new_alias (
 	       'portal_datasource',
-	       'news_portlet',
+	       'news_admin_portlet',
 	       'Edit',
-	       'news_portlet::edit',
+	       'news_admin_portlet::edit',
 	       'TCL'
 	);
 
 	foo := acs_sc_impl.new_alias (
 	       'portal_datasource',
-	       'news_portlet',
+	       'news_admin_portlet',
 	       'RemoveSelfFromPage',
-	       'news_portlet::remove_self_from_page',
+	       'news_admin_portlet::remove_self_from_page',
 	       'TCL'
 	);
 
 	foo := acs_sc_impl.new_alias (
 	       'portal_datasource',
-	       'news_portlet',
+	       'news_admin_portlet',
 	       'MakeSelfAvailable',
-	       'news_portlet::make_self_available',
+	       'news_admin_portlet::make_self_available',
 	       'TCL'
 	);
 
 	foo := acs_sc_impl.new_alias (
 	       'portal_datasource',
-	       'news_portlet',
+	       'news_admin_portlet',
 	       'MakeSelfUnavailable',
-	       'news_portlet::make_self_unavailable',
+	       'news_admin_portlet::make_self_unavailable',
 	       'TCL'
 	);
 end;
@@ -185,11 +186,9 @@ begin
 	-- Add the binding
 	acs_sc_binding.new (
 	    contract_name => 'portal_datasource',
-	    impl_name => 'news_portlet'
+	    impl_name => 'news_admin_portlet'
 	);
 end;
 /
 show errors
 
-
-@news-admin-portlet-create.sql

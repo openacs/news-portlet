@@ -54,19 +54,16 @@ namespace eval news_admin_portlet {
 	Adds a news admin PE to the given portal
 
 	@param portal_id The page to add self to
-	@param package_id The package_id of the news pacakge
+	@param package_id The package_id of the news package
 
 	@return element_id The new element's id
     } {
-        # there is only one news admin pe, so use:
-        set element_id [portal::add_element \
+        return [portal::add_element_parameters \
             -portal_id $portal_id \
             -portlet_name [get_my_name] \
+            -key package_id \
+            -value $package_id
         ]
-
-        portal::set_element_param $element_id package_id $package_id
-
-        return $element_id
     }
 
     ad_proc -public remove_self_from_page {

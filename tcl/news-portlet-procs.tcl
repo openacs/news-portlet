@@ -78,7 +78,7 @@ namespace eval news_portlet {
 	{-package_id:required}
     } {
         Removes a news PE from the given page or the package_id of the
-        news pacakge from the portlet if there are others remaining
+        news package from the portlet if there are others remaining
 
         @param portal_id The page to remove self from
         @param package_id

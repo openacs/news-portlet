@@ -123,8 +123,8 @@ begin
 	foo := acs_sc_impl.new_alias (
 	       'portal_datasource',
 	       'news_portlet',
-	       'MyName',
-	       'news_portlet::my_name',
+	       'GetMyName',
+	       'news_portlet::get_my_name',
 	       'TCL'
 	);
 
@@ -176,21 +176,6 @@ begin
 	       'TCL'
 	);
 
-	foo := acs_sc_impl.new_alias (
-	       'portal_datasource',
-	       'news_portlet',
-	       'MakeSelfAvailable',
-	       'news_portlet::make_self_available',
-	       'TCL'
-	);
-
-	foo := acs_sc_impl.new_alias (
-	       'portal_datasource',
-	       'news_portlet',
-	       'MakeSelfUnavailable',
-	       'news_portlet::make_self_unavailable',
-	       'TCL'
-	);
 end;
 /
 show errors

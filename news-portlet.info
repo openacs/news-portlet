@@ -33,7 +33,8 @@
             <file type="content_page" path="www/news-portlet.tcl"/>
         </files>
         <parameters>
-        <!-- No version parameters -->
+            <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="news_portlet_pretty_name"  default="News" description="the pretty name"/>
+            <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="news_portlet_force_region"  default="1" description="the portal region to put this portlet into"/>
         </parameters>
 
     </version>

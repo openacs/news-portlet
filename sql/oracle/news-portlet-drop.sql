@@ -58,7 +58,7 @@ begin
 	foo := acs_sc_impl.delete_alias (
 	       'portal_datasource',
 	       'news_portlet',
-	       'MyName'
+	       'GetMyName'
 	);
 
 	foo := acs_sc_impl.delete_alias (
@@ -96,18 +96,6 @@ begin
 	       'portal_datasource',
 	       'news_portlet',
 	       'RemoveSelfFromPage'
-	);
-
-	foo := acs_sc_impl.delete_alias (
-	       'portal_datasource',
-	       'news_portlet',
-	       'MakeSelfAvailable'
-	);
-
-	foo := acs_sc_impl.delete_alias (
-	       'portal_datasource',
-	       'news_portlet',
-	       'MakeSelfUnavailable'
 	);
 
 	-- Drop the binding

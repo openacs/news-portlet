@@ -89,12 +89,12 @@ begin
 
 -- news_admin-specific params
 
-  -- community_id must be configured
+  -- news_instance_id must be configured
   portal_datasource.set_def_param (
 	datasource_id => ds_id,
 	config_required_p => 't',
 	configured_p => 'f',
-	key => 'community_id',
+	key => 'news_instance_id',
 	value => ''
 );
 
@@ -124,8 +124,8 @@ begin
 	foo := acs_sc_impl.new_alias (
 	       'portal_datasource',
 	       'news_admin_portlet',
-	       'MyName',
-	       'news_admin_portlet::my_name',
+	       'GetMyName',
+	       'news_admin_portlet::get_my_name',
 	       'TCL'
 	);
 
@@ -177,21 +177,6 @@ begin
 	       'TCL'
 	);
 
-	foo := acs_sc_impl.new_alias (
-	       'portal_datasource',
-	       'news_admin_portlet',
-	       'MakeSelfAvailable',
-	       'news_admin_portlet::make_self_available',
-	       'TCL'
-	);
-
-	foo := acs_sc_impl.new_alias (
-	       'portal_datasource',
-	       'news_admin_portlet',
-	       'MakeSelfUnavailable',
-	       'news_admin_portlet::make_self_unavailable',
-	       'TCL'
-	);
 end;
 /
 show errors

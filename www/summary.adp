@@ -2,10 +2,6 @@
 <h3>@publish_title@</h3>
 <blockquote>
 @publish_body;noquote@
-@more_link@
+@more_link;noquote@
 <p>Contributed by @creator_link;noquote@
 </blockquote>
-
-
-
-

@@ -27,6 +27,14 @@
 array set config $cf	
 set shaded_p $config(shaded_p)
 
+set news_url [ad_conn package_url]
+set comm_id [dotlrn_community::get_community_id_from_url -url $news_url]
+if {[exists_and_not_null comm_id]} {
+    set inside_comm_p 1
+} else {
+    set inside_comm_p 0
+}
+
 # Should be a list already! XXX rename me!
 set list_of_package_ids $config(package_id)
 set one_instance_p [ad_decode [llength $list_of_package_ids] 1 1 0]

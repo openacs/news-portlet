@@ -31,4 +31,6 @@ set shaded_p $config(shaded_p)
 set list_of_package_ids $config(package_id)
 set one_instance_p [ad_decode [llength $list_of_package_ids] 1 1 0]
 
-db_multirow news_items select_news_items {}
+db_multirow -extend { publish_date } news_items select_news_items {} {
+    set publish_date [lc_time_fmt $publish_date_ansi "%x"]
+}

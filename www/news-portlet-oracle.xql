@@ -12,7 +12,7 @@
                     where site_nodes.object_id = news_items_approved.package_id) as url,
                    news_items_approved.item_id,
                    news_items_approved.publish_title,
-                   news_items_approved.publish_date
+                   to_char(news_items_approved.publish_date, 'YYYY-MM-DD HH24:MI:SS') as publish_date_ansi
             from news_items_approved
             where news_items_approved.publish_date < sysdate
             and (news_items_approved.archive_date >= sysdate or news_items_approved.archive_date is null)

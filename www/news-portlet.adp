@@ -54,7 +54,7 @@
 
   </if>
   <else>
-    No News
+    <small>No News</small>
   </else>
 
 </if>

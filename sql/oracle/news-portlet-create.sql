@@ -19,11 +19,49 @@ declare
 begin
   ds_id := portal_datasource.new(
     name             => 'news-portlet',
-    link             => 'news',
-    description      => 'News ',
-    content	     => 'news_portlet::show',
-    configurable_p   => 't'
+    description      => 'News portlet'
   );
+
+  --  the standard 4 params
+
+  -- shadeable_p 
+  portal_datasource.set_def_param (
+	datasource_id => ds_id,
+	config_required_p => 't',
+	configured_p => 't',
+	key => 'shadeable_p',
+	value => 't'
+);	
+
+
+  -- hideable_p 
+  portal_datasource.set_def_param (
+	datasource_id => ds_id,
+	config_required_p => 't',
+	configured_p => 't',
+	key => 'hideable_p',
+	value => 't'
+);	
+
+  -- user_editable_p 
+  portal_datasource.set_def_param (
+	datasource_id => ds_id,
+	config_required_p => 't',
+	configured_p => 't',
+	key => 'user_editable_p',
+	value => 'f'
+);	
+
+  -- shaded_p 
+  portal_datasource.set_def_param (
+	datasource_id => ds_id,
+	config_required_p => 't',
+	configured_p => 't',
+	key => 'shaded_p',
+	value => 'f'
+);	
+
+  -- fs-specific params
 
   -- community_id must be configured
   portal_datasource.set_def_param (
@@ -34,14 +72,6 @@ begin
 	value => ''
 );
 
-  -- shaded_p 
-  portal_datasource.set_def_param (
-	datasource_id => ds_id,
-	config_required_p => 't',
-	configured_p => 't',
-	key => 'shaded_p',
-	value => 'f'
-);	  
 
 end;
 /

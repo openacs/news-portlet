@@ -34,3 +34,78 @@ end;
 /
 show errors;
 
+declare
+	foo integer;
+begin
+
+	-- drop the hooks
+	foo := acs_sc_impl.delete_alias (
+	       'portal_datasource',
+	       'news-portlet',
+	       'MyName'
+	);
+
+	foo := acs_sc_impl.delete_alias (
+	       'portal_datasource',
+	       'news-portlet',
+	       'GetPrettyName'
+	);
+
+
+	foo := acs_sc_impl.delete_alias (
+	       'portal_datasource',
+	       'news-portlet',
+	       'Link'
+	);
+
+	foo := acs_sc_impl.delete_alias (
+	       'portal_datasource',
+	       'news-portlet',
+	       'AddSelfToPage'
+	);
+
+	foo := acs_sc_impl.delete_alias (
+	       'portal_datasource',
+	       'news-portlet',
+	       'Show'
+	);
+
+	foo := acs_sc_impl.delete_alias (
+	       'portal_datasource',
+	       'news-portlet',
+	       'Edit'
+	);
+
+	foo := acs_sc_impl.delete_alias (
+	       'portal_datasource',
+	       'news-portlet',
+	       'RemoveSelfFromPage'
+	);
+
+	foo := acs_sc_impl.delete_alias (
+	       'portal_datasource',
+	       'news-portlet',
+	       'MakeSelfAvailable'
+	);
+
+	foo := acs_sc_impl.delete_alias (
+	       'portal_datasource',
+	       'news-portlet',
+	       'MakeSelfUnavailable'
+	);
+
+	-- Drop the binding
+	acs_sc_binding.delete (
+	    contract_name => 'portal_datasource',
+	    impl_name => 'news-portlet'
+	);
+
+	-- drop the impl
+	foo := acs_sc_impl.delete (
+		'portal_datasource',
+		'news-portlet'
+	);
+end;
+/
+show errors
+

@@ -38,7 +38,10 @@ namespace eval news_portlet {
 
     ad_proc -public get_pretty_name {
     } {
-        return [parameter::get_from_package_key -package_key news_portlet_pretty_name -parameter pretty_name]
+        return [parameter::get_from_package_key \
+                    -package_key [my_package_key] \
+                    -parameter news_portlet_pretty_name
+        ]
     }
 
     ad_proc -public link {
@@ -49,6 +52,7 @@ namespace eval news_portlet {
     ad_proc -public add_self_to_page {
 	{-portal_id:required}
 	{-package_id:required}
+	{-param_action:required}
     } {
 	Adds a news PE to the given portal.
 
@@ -57,12 +61,15 @@ namespace eval news_portlet {
 
 	@return element_id The new element's id
     } {
-        return [portal::add_element_or_append_id \
+        return [portal::add_element_parameters \
             -portal_id $portal_id \
             -portlet_name [get_my_name] \
-            -value_id $package_id \
-            -force_region [ad_parameter "news_portlet_force_region" [my_package_key]] \
-            -pretty_name [get_pretty_name]
+            -value $package_id \
+            -force_region [parameter::get_from_package_key \
+                               -parameter "news_portlet_force_region" \
+                               -package_key [my_package_key]] \
+            -pretty_name [get_pretty_name] \
+            -param_action $param_action
         ]
     }
 
@@ -76,10 +83,10 @@ namespace eval news_portlet {
         @param portal_id The page to remove self from
         @param package_id
     } {
-        portal::remove_element_or_remove_id \
+        portal::remove_element_parameters \
             -portal_id $portal_id \
             -portlet_name [get_my_name] \
-            -value_id $package_id
+            -value $package_id
     }
 
     ad_proc -public show {

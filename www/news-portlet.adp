@@ -22,40 +22,32 @@
 
   <if @news_items:rowcount@ gt 0>
 
-<%
-    set new_package_id ""
-    set old_package_id ""
-%>
+    <if @news_items:rowcount@ eq 1>
 
-<multiple name="news_items">
-
-<% set new_package_id $news_items(package_id) %>
-
-    <if @one_instance_p@ false and @new_package_id@ ne @old_package_id@ and @old_package_id@ ne "">
-      </ul>
-    </if>
-
-    <if @one_instance_p@ false and @new_package_id@ ne @old_package_id@>
-      @news_items.parent_name@
-      <ul>
-    </if>
-
-<if @news_items:rowcount@ eq 1>
+      <multiple name="news_items">
 	<include src="summary" 
 	item_id="@news_items.item_id@"
 	url="@news_items.view_url@">
-</if>
-<else>
-      <li>
-        <a href="@news_items.url@item?item_id=@news_items.item_id@">@news_items.publish_title@</a>
-        <small>(@news_items.publish_date@)</small>
-      </li>
+      </multiple>
 
-<%
-    set old_package_id $new_package_id
-%>
-</else>
-</multiple>
+    </if>
+    <else>
+
+      <multiple name="news_items">
+
+<if @one_instance_p@ false>@news_items.parent_name@</if>
+<ul>
+<group column="package_id">
+  <li>
+    <a href="@news_items.url@item?item_id=@news_items.item_id@">@news_items.publish_title@</a>
+    <small>(@news_items.publish_date@)</small>
+  </li>
+</group>
+</ul>
+
+      </multiple>
+
+    </else>
 
   </if>
   <else>

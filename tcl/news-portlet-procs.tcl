@@ -44,6 +44,14 @@ namespace eval news_portlet {
         ]
     }
 
+    ad_proc -public get_summary_length {
+    } {
+        return [parameter::get_from_package_key \
+                    -package_key [my_package_key] \
+                    -parameter news_portlet_summary_length
+        ]
+    }
+
     ad_proc -public link {
     } {
 	return ""

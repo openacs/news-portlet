@@ -70,8 +70,8 @@ namespace eval news_portlet {
     }
 
     ad_proc -public remove_self_from_page {
-	portal_id
-	package_id
+	{-portal_id:required}
+	{-package_id:required}
     } {
         Removes a news PE from the given page or the package_id of the
         news pacakge from the portlet if there are others remaining

@@ -70,7 +70,7 @@ namespace eval news_admin_portlet {
     }
 
     ad_proc -public remove_self_from_page {
-	portal_id
+	{-portal_id:required}
     } {
 	  Removes a news admin PE from the given page
     } {

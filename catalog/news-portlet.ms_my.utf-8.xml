@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<message_catalog package_key="news-portlet" package_version="0.1a" locale="ms_my" charset="utf-8">
-
-  <msg key="Add_a_News_Item">Tambah Bahan Berita</msg>
-  <msg key="admin_pretty_name">Penyeliaan Berita</msg>
-  <msg key="Manage_News">Urus Berita</msg>
-  <msg key="No_News">Tiada Berita</msg>
-  <msg key="pretty_name">Berita</msg>
-</message_catalog>

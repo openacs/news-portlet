@@ -61,7 +61,7 @@ begin
 	value => 'f'
 );	
 
-  -- fs-specific params
+  -- news-specific params
 
   -- community_id must be configured
   portal_datasource.set_def_param (
@@ -73,6 +73,111 @@ begin
 );
 
 
+end;
+/
+show errors
+
+declare
+	foo integer;
+begin
+	-- create the implementation
+	foo := acs_sc_impl.new (
+		'portal_datasource',
+		'news_portlet',
+		'news_portlet'
+	);
+
+end;
+/
+show errors
+
+declare
+	foo integer;
+begin
+	-- add all the hooks
+	foo := acs_sc_impl.new_alias (
+	       'portal_datasource',
+	       'news_portlet',
+	       'MyName',
+	       'news_portlet::my_name',
+	       'TCL'
+	);
+
+	foo := acs_sc_impl.new_alias (
+	       'portal_datasource',
+	       'news_portlet',
+	       'GetPrettyName',
+	       'news_portlet::get_pretty_name',
+	       'TCL'
+	);
+
+	foo := acs_sc_impl.new_alias (
+	       'portal_datasource',
+	       'news_portlet',
+	       'Link',
+	       'news_portlet::link',
+	       'TCL'
+	);
+
+	foo := acs_sc_impl.new_alias (
+	       'portal_datasource',
+	       'news_portlet',
+	       'AddSelfToPage',
+	       'news_portlet::add_self_to_page',
+	       'TCL'
+	);
+
+	foo := acs_sc_impl.new_alias (
+	       'portal_datasource',
+	       'news_portlet',
+	       'Show',
+	       'news_portlet::show',
+	       'TCL'
+	);
+
+	foo := acs_sc_impl.new_alias (
+	       'portal_datasource',
+	       'news_portlet',
+	       'Edit',
+	       'news_portlet::edit',
+	       'TCL'
+	);
+
+	foo := acs_sc_impl.new_alias (
+	       'portal_datasource',
+	       'news_portlet',
+	       'RemoveSelfFromPage',
+	       'news_portlet::remove_self_from_page',
+	       'TCL'
+	);
+
+	foo := acs_sc_impl.new_alias (
+	       'portal_datasource',
+	       'news_portlet',
+	       'MakeSelfAvailable',
+	       'news_portlet::make_self_available',
+	       'TCL'
+	);
+
+	foo := acs_sc_impl.new_alias (
+	       'portal_datasource',
+	       'news_portlet',
+	       'MakeSelfUnavailable',
+	       'news_portlet::make_self_unavailable',
+	       'TCL'
+	);
+end;
+/
+show errors
+
+declare
+	foo integer;
+begin
+	-- Add the binding
+	acs_sc_binding.new (
+	    contract_name => 'portal_datasource',
+	    impl_name => 'news_portlet'
+	);
 end;
 /
 show errors

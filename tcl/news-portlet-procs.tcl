@@ -32,7 +32,7 @@ namespace eval news_portlet {
 
     ad_proc -public add_self_to_page { 
 	portal_id 
-	community_id
+	instance_id
     } {
 	Adds a news PE to the given page with the community_id.
     
@@ -42,12 +42,24 @@ namespace eval news_portlet {
 	@author arjun@openforce.net
 	@creation-date Sept 2001
     } {
-	# Tell portal to add this element to the page
-	set element_id [portal::add_element $portal_id [my_name]]
-	
-	# The default param "community_id" must be configured
-	set key "community_id"
-	portal::set_element_param $element_id $key $community_id
+	# Add some smarts to only add one portlet for now when it's added multiple times (ben)
+	# Find out if bboard already exists
+	set element_id_list [portal::get_element_ids_by_ds $portal_id [my_name]]
+
+	if {[llength $element_id_list] == 0} {
+	    # Tell portal to add this element to the page
+	    set element_id [portal::add_element $portal_id [my_name]]
+	    # There is already a value for the param which must be overwritten
+	    portal::set_element_param $element_id community_id $instance_id
+	    set package_id_list [list]
+	} else {
+	    set element_id [lindex $element_id_list 0]
+	    # There are existing values which should NOT be overwritten
+	    portal::add_element_param_value \
+                    -element_id $element_id \
+                    -key community_id \
+                    -value $instance_id
+	}
 
 	return $element_id
     }
@@ -80,31 +92,41 @@ namespace eval news_portlet {
 	from   news_items_approved
 	where publish_date < sysdate 
 	and (archive_date is null or archive_date > sysdate)      
-	and    package_id = $config(community_id)
+	and    package_id = :instance_id
 	order  by publish_date desc, item_id desc"
 	
 	set data ""
 	set rowcount 0
 
 	if { $config(shaded_p) == "f" } {
+            
+            # Should be a list already! XXX rename me!
+            set list_of_instance_ids $config(community_id)
 
-	    db_foreach select_news_items $query {
-		append data "<li>$publish_date: <a href=news/item?item_id=$item_id>$publish_title</a>"
-		incr rowcount
-	    } 
+#            ad_return_complaint 1 "$list_of_instance_ids"
 
-	    set template "<ul>$data</ul>"
+            foreach instance_id $list_of_instance_ids {
+                db_1row select_name \
+                        "select name 
+                from site_nodes where node_id= (select parent_id from site_nodes where object_id=:instance_id)" 
+
+                    append data "<br><font size=+1><b>$name</b></font> (<a href=[dotlrn_community::get_url_from_package_id -package_id $instance_id]>more</a>)"
+                db_foreach select_news_items $query {
+                    append data "<li>$publish_date: <a href=[dotlrn_community::get_url_from_package_id -package_id $instance_id]item?item_id=$item_id>$publish_title</a>"
+                    incr rowcount
+                } 
+
+                set template "<ul>$data</ul>"
 	    
-	    if {!$rowcount} {
-		set template "<i>No news items available</i><P><a href=\"news\">more...</a>"
-	    } else {
-		append template "<a href=\"news\">more...</a>"
-	    }
+                if {!$rowcount} {
+                    set template "<i>No news items available</i><P><a href=\"news\">more...</a>"
+                } 
+            }
 	} else {
 	    # shaded	
 	    set template ""
 	}
-
+            
 	
 	set code [template::adp_compile -string $template]
 

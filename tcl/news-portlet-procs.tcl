@@ -25,6 +25,11 @@ namespace eval news_portlet {
 	return "News"
     }
 
+    ad_proc -public link {
+    } {
+	return "news"
+    }
+
     ad_proc -public add_self_to_page { 
 	page_id 
 	community_id

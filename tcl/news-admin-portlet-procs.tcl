@@ -69,7 +69,7 @@ namespace eval news_admin_portlet {
 
 	if {[llength $element_id_list] == 0} {
 	    # Tell portal to add this element to the page
-	    set element_id [portal::add_element $portal_id [my_name]]
+	    set element_id [portal::add_element -force_region 2 $portal_id [my_name]]
 	    # There is already a value for the param which must be overwritten
 	    portal::set_element_param $element_id community_id $instance_id
 	    set package_id_list [list]

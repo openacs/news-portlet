@@ -36,6 +36,6 @@ if {[llength $list_of_package_ids] > 1} {
 
 set package_id [lindex $list_of_package_ids 0]        
 
-set url [site_node::get_url_from_object_id -object_id $package_id]
+set url [lindex [site_node::get_url_from_object_id -object_id $package_id] 0]
 
 ad_return_template 

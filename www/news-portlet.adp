@@ -58,4 +58,5 @@
 <else>
 &nbsp;
 </else>
+<if @inside_comm_p@ ><br><a href="@news_url@news/item-create">#news-portlet.Add_a_News_Item#</a></if>
 

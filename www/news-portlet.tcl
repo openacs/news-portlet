@@ -37,12 +37,14 @@ foreach instance_id $list_of_instance_ids {
         set parent_name [site_nodes::get_parent_name -instance_id $instance_id]
         set parent_url [dotlrn_community::get_url_from_package_id -package_id $instance_id]
         
-        append data "$parent_name<P>"
+        append data "$parent_name<P><ul>"
         
         db_foreach news_items_select {} {
-            append data "&nbsp;&nbsp;<a href=${parent_url}item?item_id=$item_id>$publish_title</a> <small>$publish_date</small><P>"
+            append data "<li><a href=${parent_url}item?item_id=$item_id>$publish_title</a> <small>$publish_date</small><P>"
         }
     }
+
+    append data "</ul>"
 
     if {!$has_items_p && $one_instance_p} {
         append data "<small>No news items</small>"

@@ -2,7 +2,7 @@
 
 ad_library {
 
-Procedures to support the file-storage portlet
+Procedures to support the news portlet
 
 Copyright Openforce, Inc.
 Licensed under GNU GPL v2 
@@ -84,7 +84,7 @@ namespace eval news_portlet {
 	if { $config(shaded_p) == "f" } {
 
 	    db_foreach select_news_items $query {
-		append data "<li>@news_items.publish_date@: <a href=news/item?item_id=@news_items.item_id@>@news_items.publish_title@</a>"
+		append data "<li>$publish_date: <a href=news/item?item_id=$item_id>$publish_title</a>"
 		incr rowcount
 	    } 
 
@@ -92,18 +92,21 @@ namespace eval news_portlet {
 	    
 	    if {!$rowcount} {
 		set template "<i>No news items available</i><P><a href=\"news\">more...</a>"
+	    } else {
+		append template "<a href=\"news\">more...</a>"
 	    }
-
 	} else {
 	    # shaded	
 	    set template ""
 	}
+
 	
 	set code [template::adp_compile -string $template]
 
 	set output [template::adp_eval code]
-	return $output
 
+	return $output
+    
     }
 
     ad_proc -public remove_self_from_page { 

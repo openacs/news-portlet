@@ -17,8 +17,14 @@ namespace eval news_portlet {
 
     ad_proc -private my_name {
     } {
-    return "news_portlet"
+        return "news_portlet"
     }
+
+    ad_proc -private my_package_key {
+    } {
+        return "news-portlet"
+    }
+
 
     ad_proc -public get_pretty_name {
     } {
@@ -74,69 +80,11 @@ namespace eval news_portlet {
 	 @author arjun@openforce.net
 	 @creation-date Sept 2001
     } {
-
-	array set config $cf	
-
-	# things we need in the config 
-	# community_id 
-
-	# get user_id from the conn at this point
-	set user_id [ad_conn user_id]
-
-	# a modified query from news/www/index.tcl
-	set query "
-	select item_id,
-	package_id,
-	publish_title,
-	publish_date
-	from   news_items_approved
-	where publish_date < sysdate 
-	and (archive_date is null or archive_date > sysdate)      
-	and    package_id = :instance_id
-	order  by publish_date desc, item_id desc"
-	
-	set data "<table border=0 cellpadding=2 cellspacing=2 width=100%>"
-	set rowcount 0
-
-	if { $config(shaded_p) == "f" } {
-            
-            # Should be a list already! XXX rename me!
-            set list_of_instance_ids $config(community_id)
-
-            foreach instance_id $list_of_instance_ids {
-
-            # aks fold into site_nodes:: or dotlrn_community
-            set comm_object_id [db_string select_name "select object_id from site_nodes where node_id= (select parent_id from site_nodes where object_id=:instance_id)" ]
-
-            set name [db_string select_pretty_name "
-                select instance_name 
-                from apm_packages
-                where package_id= :comm_object_id "]
-
-                append data "<tr colspan=2><td><a href=[dotlrn_community::get_url_from_package_id -package_id $instance_id]><b>$name</b> News</a></td></tr>"
-                db_foreach select_news_items $query {
-                    append data "<tr><td>&nbsp;&nbsp;<a href=[dotlrn_community::get_url_from_package_id -package_id $instance_id]item?item_id=$item_id>$publish_title</a></td><td><small>$publish_date</small></td></tr>"
-                    incr rowcount
-                } 
-
-                set template "$data</table>"
-	    
-                if {!$rowcount} {
-                    set template "<table border=0 cellpadding=2 cellspacing=2 width=100%><tr><td><small>No news items available</small></td></tr></table>"
-                } 
-            }
-	} else {
-	    # shaded	
-	    set template ""
-	}
-            
-	
-	set code [template::adp_compile -string $template]
-
-	set output [template::adp_eval code]
-
-	return $output
-    
+        # no return call required with the helper proc
+        portal::show_proc_helper \
+                -package_key [my_package_key] \
+                -config_list $cf \
+                -template_src "news-portlet"
     }
 
     ad_proc -public edit { 

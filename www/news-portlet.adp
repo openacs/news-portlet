@@ -54,10 +54,11 @@
 
   </if>
   <else>
-    <small>No News</small>
+    <small>#news-portlet.No_News#</small>
   </else>
 
 </if>
 <else>
 &nbsp;
 </else>
+

@@ -19,6 +19,7 @@
 %>
 
 <ul>
-  <li><a href="@url@admin">Manage News</a>
-  <li><a href="@url@item-create">Add a News Item</a>
+  <li><a href="@url@admin">#news-portlet.Manage_News#</a>
+  <li><a href="@url@item-create">#news-portlet.Add_a_News_Item#</a>
 </ul>
+

@@ -24,6 +24,10 @@
             <file type="data_model" db_type="oracle" path="sql/oracle/news-admin-portlet-create.sql"/>
             <file type="data_model_create" db_type="oracle" path="sql/oracle/news-portlet-create.sql"/>
             <file type="data_model_drop" db_type="oracle" path="sql/oracle/news-portlet-drop.sql"/>
+            <file type="data_model" db_type="postgresql" path="sql/postgresql/news-admin-portlet-create.sql"/>
+            <file type="data_model" db_type="postgresql" path="sql/postgresql/news-admin-portlet-drop.sql"/>
+            <file type="data_model_create" db_type="postgresql" path="sql/postgresql/news-portlet-create.sql"/>
+            <file type="data_model_drop" db_type="postgresql" path="sql/postgresql/news-portlet-drop.sql"/>
             <file type="tcl_procs" path="tcl/news-admin-portlet-procs.tcl"/>
             <file type="tcl_procs" path="tcl/news-portlet-procs.tcl"/>
             <file type="content_page" path="www/news-admin-portlet.adp"/>

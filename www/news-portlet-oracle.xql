@@ -18,7 +18,7 @@
             from news_items_approved
             where news_items_approved.publish_date < sysdate
             and (news_items_approved.archive_date >= sysdate or news_items_approved.archive_date is null)
-            and news_items_approved.package_id in ([join $list_of_instance_ids ", "])
+            and news_items_approved.package_id in ([join $list_of_package_ids ", "])
             order by parent_name,
                      news_items_approved.publish_title
         </querytext>

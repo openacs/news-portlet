@@ -19,7 +19,7 @@ ad_library {
     Procedures to support the news admin portlet
 
     @creation-date Jan 2002
-    @author ben@openforce.net 
+    @author ben@openforce.net
     @cvs-id $Id$
 
 }
@@ -46,53 +46,48 @@ namespace eval news_admin_portlet {
 	return ""
     }
 
-    ad_proc -public add_self_to_page { 
-	portal_id 
-	news_instance_id
+    ad_proc -public add_self_to_page {
+	{-portal_id:required}
+        {-page_name ""}
+	{-package_id:required}
     } {
 	Adds a news admin PE to the given portal
 
 	@param portal_id The page to add self to
-	@param news_instance_id The instance_id of the news pacakge
+	@param package_id The package_id of the news pacakge
+
 	@return element_id The new element's id
     } {
         # there is only one news admin pe, so use:
         set element_id [portal::add_element \
-                        -portal_id $portal_id \
-                        -portlet_name [get_my_name]
+            -portal_id $portal_id \
+            -portlet_name [get_my_name] \
         ]
 
-        portal::set_element_param \
-                $element_id \
-                "news_instance_id" \
-                $news_instance_id
+        portal::set_element_param $element_id package_id $package_id
 
         return $element_id
     }
 
-    ad_proc -public remove_self_from_page { 
-	portal_id 
+    ad_proc -public remove_self_from_page {
+	portal_id
     } {
-	  Removes a news admin PE from the given page 
+	  Removes a news admin PE from the given page
     } {
         portal::remove_element \
-                -portal_id $portal_id \
-                -portlet_name [get_my_name]
+            -portal_id $portal_id \
+            -portlet_name [get_my_name]
     }
 
-    ad_proc -public show { 
-	 cf 
+    ad_proc -public show {
+	 cf
     } {
     } {
         portal::show_proc_helper \
-                -package_key [my_package_key] \
-                -config_list $cf \
-                -template_src "news-admin-portlet"
-    
+            -package_key [my_package_key] \
+            -config_list $cf \
+            -template_src "news-admin-portlet"
+
     }
 
-
 }
-
- 
-

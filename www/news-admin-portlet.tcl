@@ -27,7 +27,7 @@ ad_page_contract {
 
 array set config $cf
 set user_id [ad_conn user_id]
-set list_of_package_ids $config(news_instance_id)
+set list_of_package_ids $config(package_id)
 
 if {[llength $list_of_package_ids] > 1} {
     # We have a problem!

@@ -19,7 +19,7 @@ ad_library {
     Procedures to support the news portlet
 
     @creation-date Nov 2001
-    @author arjun@openforce.net 
+    @author arjun@openforce.net
     @cvs-id $Id$
 
 }
@@ -49,49 +49,50 @@ namespace eval news_portlet {
 	return ""
     }
 
-    ad_proc -public add_self_to_page { 
-	portal_id 
-	instance_id
+    ad_proc -public add_self_to_page {
+	{-portal_id:required}
+	{-package_id:required}
     } {
-	Adds a news PE to the given portal. 
-    
+	Adds a news PE to the given portal.
+
 	@param portal_id The page to add self to
-	@param instance_id The community with the folder
+	@param package_id The community with the folder
+
 	@return element_id The new element's id
     } {
         return [portal::add_element_or_append_id \
-                      -portal_id $portal_id \
-                      -portlet_name [get_my_name] \
-                      -value_id $instance_id \
-                      -force_region [ad_parameter "news_portlet_force_region" [my_package_key]] \
-                      -pretty_name [get_pretty_name]
+            -portal_id $portal_id \
+            -portlet_name [get_my_name] \
+            -value_id $package_id \
+            -force_region [ad_parameter "news_portlet_force_region" [my_package_key]] \
+            -pretty_name [get_pretty_name]
         ]
     }
 
-    ad_proc -public remove_self_from_page { 
-	portal_id 
-	instance_id 
+    ad_proc -public remove_self_from_page {
+	portal_id
+	package_id
     } {
-        Removes a news PE from the given page or the instance_id of the
+        Removes a news PE from the given page or the package_id of the
         news pacakge from the portlet if there are others remaining
-        
+
         @param portal_id The page to remove self from
-        @param instance_id
+        @param package_id
     } {
         portal::remove_element_or_remove_id \
-                -portal_id $portal_id \
-                -portlet_name [get_my_name] \
-                -value_id $instance_id
+            -portal_id $portal_id \
+            -portlet_name [get_my_name] \
+            -value_id $package_id
     }
 
-    ad_proc -public show { 
-	 cf 
+    ad_proc -public show {
+	 cf
     } {
     } {
         portal::show_proc_helper \
-                -package_key [my_package_key] \
-                -config_list $cf \
-                -template_src "news-portlet"
+            -package_key [my_package_key] \
+            -config_list $cf \
+            -template_src "news-portlet"
     }
 
 }

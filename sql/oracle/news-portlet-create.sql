@@ -93,7 +93,7 @@ begin
 	datasource_id => ds_id,
 	config_required_p => 't',
 	configured_p => 'f',
-	key => 'community_id',
+	key => 'instance_id',
 	value => ''
 );
 

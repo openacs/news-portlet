@@ -38,7 +38,10 @@ namespace eval news_portlet {
 
     ad_proc -public get_pretty_name {
     } {
-	return [ad_parameter "news_portlet_pretty_name" [my_package_key]]
+        return [oacs_util::parameter \
+                -key "news_portlet_pretty_name" \
+                -package_key [my_package_key]
+        ]
     }
 
     ad_proc -public link {

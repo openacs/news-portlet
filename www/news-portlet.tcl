@@ -46,9 +46,9 @@ foreach instance_id $list_of_instance_ids {
         append data "</ul>"
     }
 
+}
 
-    if {!$has_items_p && $one_instance_p} {
-        # Ben wants this to disappear!
-        # append data "<small>No news items</small>"
-    }
+# portlets shouldn't disappear anymore (ben)
+if {[empty_string_p $data]} {
+    set data "<small>No FAQs</small>"
 }

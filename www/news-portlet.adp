@@ -41,9 +41,9 @@
     </if>
 
 <if @news_items:rowcount@ eq 1>
-	<include src=summary 
-	item_id=@news_items.item_id@ 
-	url=@news_items.url@?item_id=@news_items.item_id@>
+	<include src="summary" 
+	item_id="@news_items.item_id@"
+	url="@news_items.view_url@">
 </if>
 <else>
       <li>

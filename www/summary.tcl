@@ -31,10 +31,12 @@ select item_id,
        publish_title,
        html_p,
        publish_date,
-       '<a href=/shared/community-member?user_id=' || creation_user || '>' || item_creator ||  '</a>' as creator_link
+       creation_user,
+       item_creator
 from   news_items_live_or_submitted
 where  item_id = :item_id"]
 
+set creator_url [acs_community_member_url -user_id $creation_user]
 
 if { $item_exist_p } {
 
@@ -71,29 +73,9 @@ if { $item_exist_p } {
 
 set more_link ""
 if { [string length $publish_body] > 1000 } {
-    set publish_body "[string range $publish_body 0 1000]"
-    set more_link "......<a href=$url>read more</a>"
+    set publish_body [string_truncate -len 1000 -- $publish_body]
+    set more_link "<br><b>&raquo;</b> <a href=\"$url\">[_ news-portlet.Read_more]</a>"
 }
 
 set publish_body [ad_convert_to_html  -html_p $html_p $publish_body]
-
-
-
-
-ad_return_template
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

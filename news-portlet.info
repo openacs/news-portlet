@@ -17,6 +17,7 @@
 
         <provides url="news-portlet" version="0.1a"/>
         <requires url="new-portal" version="0.1a"/>
+        <requires url="news" version="4.1.0b"/>
 
         <files>
             <file type="package_spec" path="news-portlet.info"/>

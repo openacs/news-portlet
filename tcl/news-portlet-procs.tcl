@@ -95,7 +95,7 @@ namespace eval news_portlet {
 	and    package_id = :instance_id
 	order  by publish_date desc, item_id desc"
 	
-	set data ""
+	set data "<table border=0 cellpadding=2 cellspacing=2 width=100%>"
 	set rowcount 0
 
 	if { $config(shaded_p) == "f" } {
@@ -103,20 +103,23 @@ namespace eval news_portlet {
             # Should be a list already! XXX rename me!
             set list_of_instance_ids $config(community_id)
 
-#            ad_return_complaint 1 "$list_of_instance_ids"
-
             foreach instance_id $list_of_instance_ids {
-                db_1row select_name \
-                        "select name 
-                from site_nodes where node_id= (select parent_id from site_nodes where object_id=:instance_id)" 
 
-                    append data "<br><font size=+1><b>$name</b></font> (<a href=[dotlrn_community::get_url_from_package_id -package_id $instance_id]>more</a>)"
+            # aks fold into site_nodes:: or dotlrn_community
+            set comm_object_id [db_string select_name "select object_id from site_nodes where node_id= (select parent_id from site_nodes where object_id=:instance_id)" ]
+
+            set name [db_string select_pretty_name "
+                select instance_name 
+                from apm_packages
+                where package_id= :comm_object_id "]
+
+                append data "<tr colspan=2><td><a href=[dotlrn_community::get_url_from_package_id -package_id $instance_id]><b>$name</b> News</a></td></tr>"
                 db_foreach select_news_items $query {
-                    append data "<li>$publish_date: <a href=[dotlrn_community::get_url_from_package_id -package_id $instance_id]item?item_id=$item_id>$publish_title</a>"
+                    append data "<tr><td>&nbsp;&nbsp;<a href=[dotlrn_community::get_url_from_package_id -package_id $instance_id]item?item_id=$item_id>$publish_title</a></td><td><small>$publish_date</small></td></tr>"
                     incr rowcount
                 } 
 
-                set template "<ul>$data</ul>"
+                set template "$data</table>"
 	    
                 if {!$rowcount} {
                     set template "<i>No news items available</i><P><a href=\"news\">more...</a>"

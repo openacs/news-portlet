@@ -50,5 +50,5 @@ foreach instance_id $list_of_instance_ids {
 
 # portlets shouldn't disappear anymore (ben)
 if {[empty_string_p $data]} {
-    set data "<small>No FAQs</small>"
+    set data "<small>No News</small>"
 }

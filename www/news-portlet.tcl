@@ -42,11 +42,13 @@ foreach instance_id $list_of_instance_ids {
         db_foreach news_items_select {} {
             append data "<li><a href=${parent_url}item?item_id=$item_id>$publish_title</a> <small>($publish_date)</small><BR>"
         }
+
+        append data "</ul>"
     }
 
-    append data "</ul>"
 
     if {!$has_items_p && $one_instance_p} {
-        append data "<small>No news items</small>"
+        # Ben wants this to disappear!
+        # append data "<small>No news items</small>"
     }
 }

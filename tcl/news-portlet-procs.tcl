@@ -122,7 +122,7 @@ namespace eval news_portlet {
                 set template "$data</table>"
 	    
                 if {!$rowcount} {
-                    set template "<i>No news items available</i><P><a href=\"news\">more...</a>"
+                    set template "<table border=0 cellpadding=2 cellspacing=2 width=100%><tr><td><small>No news items available</small></td></tr></table>"
                 } 
             }
 	} else {

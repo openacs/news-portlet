@@ -6,7 +6,7 @@
     <fullquery name="select_news_items">
         <querytext>
             select news_items_approved.package_id,
-                   acs_object.name(news_items_approved.package_id) as parent_name,
+                   acs_object.name(apm_package.parent_id(news_items_approved.package_id)) as parent_name,
                    (select site_node.url(site_nodes.node_id)
                     from site_nodes
                     where site_nodes.object_id = news_items_approved.package_id) as url,

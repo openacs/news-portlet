@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<message_catalog package_key="news-portlet" package_version="0.1a" locale="sh_HR" charset="ISO-8859-5">
-
-  <msg key="No_News">Nema novosti</msg>
-  <msg key="pretty_name">Novosti</msg>
-</message_catalog>

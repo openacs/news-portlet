@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<message_catalog package_key="news-portlet" package_version="0.1a" locale="pl_PL" charset="ISO-8859-2">
-
-  <msg key="Add_a_News_Item">Dodaj Wiadomo¶æ</msg>
-  <msg key="admin_pretty_name">Administracja Wiadomo¶ciami</msg>
-  <msg key="Manage_News">Zarz±dzaj Wiadomo¶ciami</msg>
-  <msg key="No_News">Brak Wiadomo¶ci</msg>
-  <msg key="pretty_name">Wiadomo¶ci</msg>
-</message_catalog>

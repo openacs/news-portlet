@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<message_catalog package_key="news-portlet" package_version="0.1a" locale="el_GR" charset="ISO-8859-7">
-
-  <msg key="No_News">Δεν υπάρχουν διαθέσιμα νέα</msg>
-  <msg key="pretty_name">Νέα</msg>
-</message_catalog>

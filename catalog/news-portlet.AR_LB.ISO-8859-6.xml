@@ -1,9 +1,0 @@
-<?xml version="?.?"?>
-<message_catalog package_key="news-portlet" package_version="?.?a" locale="AR_LB" charset="ISO-????-?">
-
-  <msg key="Add_a_News_Item">√÷·Ú Œ»—«Î</msg>
-  <msg key="admin_pretty_name">≈œ«—… «‰√Œ»«—</msg>
-  <msg key="Manage_News">√œ—Ú «‰√Œ»«—Ó</msg>
-  <msg key="No_News">‰« √Œ»«—</msg>
-  <msg key="pretty_name">«‰√Œ»«—</msg>
-</message_catalog>

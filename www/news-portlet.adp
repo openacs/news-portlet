@@ -31,7 +31,7 @@
 
 <% set new_package_id $news_items(package_id) %>
 
-    <if @new_package_id@ ne @old_package_id@>
+    <if @one_instance_p@ false and @new_package_id@ ne @old_package_id@>
       <li>@news_items.parent_name@
       <ul>
     </if>
@@ -45,7 +45,7 @@
     set old_package_id $new_package_id
 %>
 
-    <if @new_package_id@ ne @old_package_id@>
+    <if @one_instance_p@ false and @new_package_id@ ne @old_package_id@>
       </ul>
     </if>
 </multiple>

@@ -29,5 +29,6 @@ set shaded_p $config(shaded_p)
 
 # Should be a list already! XXX rename me!
 set list_of_instance_ids $config(community_id)
+set one_instance_p [ad_decode [llength $list_of_instance_ids] 1 1 0]
 
 db_multirow news_items select_news_items {}

@@ -18,7 +18,7 @@ declare
   ds_id portal_datasources.datasource_id%TYPE;
 begin
   ds_id := portal_datasource.new(
-    name             => 'news-portlet',
+    name             => 'news_portlet',
     description      => 'News portlet'
   );
 

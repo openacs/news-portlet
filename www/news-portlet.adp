@@ -20,21 +20,39 @@
 
 <if @shaded_p@ ne "t">
 
-  <if @no_news_p@ ne "t">
+  <if @news_items:rowcount@ gt 0>
 
-    <if @one_instance_p@ eq 0>
+<%
+    set new_package_id ""
+    set old_package_id ""
+%>
+
+<multiple name="news_items">
+
+<% set new_package_id $news_items(package_id) %>
+
+    <if @new_package_id@ ne @old_package_id@>
+      <li>@news_items.parent_name@
       <ul>
     </if>
 
-      @data@
+      <li>
+        <a href="@news_items.url@item?item_id=@news_items.item_id@">@news_items.publish_title@</a>
+        <small>(@news_items.publish_date@)</small>
+      </li>
 
-  <if @one_instance_p@ eq 0>
-    </ul>
-  </if>
+<%
+    set old_package_id $new_package_id
+%>
+
+    <if @new_package_id@ ne @old_package_id@>
+      </ul>
+    </if>
+</multiple>
 
   </if>
   <else>
-    @data@
+    No News
   </else>
 
 </if>

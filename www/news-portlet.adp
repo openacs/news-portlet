@@ -27,35 +27,38 @@
     set old_package_id ""
 %>
 
+
+      <table border="0" bgcolor="white" cellpadding="2" cellspacing="0" width="100%">
+        <tr class="table-header">
+          <td><strong class="table-header">#news.Title#</strong></td>
+          <td><strong class="table-header">#dotlrn.clubs_pretty_name#</strong></td>
+        </tr>
+
+
 <multiple name="news_items">
 
 <% set new_package_id $news_items(package_id) %>
 
-    <if @one_instance_p@ false and @new_package_id@ ne @old_package_id@ and @old_package_id@ ne "">
-      </ul>
-    </if>
+      <if @news_items.rownum@ odd>
+        <tr class="odd">
+      </if>
+      <else>
+        <tr class="even">
+      </else>
+        <td><a href="@news_items.url@item?item_id=@news_items.item_id@">@news_items.publish_title@</a>
+        <small>(@news_items.publish_date@)</small></td>
+        <td>@news_items.parent_name@</td>
+      </tr>
+
+<% set old_package_id $new_package_id %>
 
     <if @one_instance_p@ false and @new_package_id@ ne @old_package_id@>
-      @news_items.parent_name@
-      <ul>
+      </tr>
     </if>
-
-<if @news_items:rowcount@ eq 1>
-	<include src="summary" 
-	item_id="@news_items.item_id@"
-	url="@news_items.view_url@">
-</if>
-<else>
-      <li>
-        <a href="@news_items.url@item?item_id=@news_items.item_id@">@news_items.publish_title@</a>
-        <small>(@news_items.publish_date@)</small>
-      </li>
-
-<%
-    set old_package_id $new_package_id
-%>
-</else>
 </multiple>
+
+      </table>
+
 
   </if>
   <else>

@@ -40,7 +40,7 @@ foreach instance_id $list_of_instance_ids {
         append data "$parent_name<P><ul>"
         
         db_foreach news_items_select {} {
-            append data "<li><a href=${parent_url}item?item_id=$item_id>$publish_title</a> <small>$publish_date</small><P>"
+            append data "<li><a href=${parent_url}item?item_id=$item_id>$publish_title</a> <small>($publish_date)</small><BR>"
         }
     }
 

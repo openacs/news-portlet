@@ -6,7 +6,7 @@
     <pretty-plural>News Portlets</pretty-plural>
     <initial-install-p>f</initial-install-p>
     <singleton-p>t</singleton-p>
-
+    
     <version name="2.0.3" url="http://openacs.org/repository/download/apm/news-portlet-2.0.3.apm">
         <owner url="http://opeancs.org">OpenACS</owner>
         <release-date>2004-03-10</release-date>
@@ -16,9 +16,12 @@
         <requires url="new-portal" version="0.1a"/>
         <requires url="news" version="4.6"/>
 
+        <callbacks>
+        </callbacks>
         <parameters>
-            <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="news_portlet_pretty_name"  default="#news-portlet.pretty_name#" description="the pretty name"/>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="news_portlet_force_region"  default="1" description="the portal region to put this portlet into"/>
+            <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="news_portlet_pretty_name"  default="#news-portlet.pretty_name#" description="the pretty name"/>
+            <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="news_portlet_summary_length"  default="1000" description="The length of the summary to display in the portlet"/>
         </parameters>
 
     </version>

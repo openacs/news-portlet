@@ -37,10 +37,14 @@ foreach instance_id $list_of_instance_ids {
         set parent_name [site_nodes::get_parent_name -instance_id $instance_id]
         set parent_url [dotlrn_community::get_url_from_package_id -package_id $instance_id]
         
-        append data "$parent_name<P><ul>"
+        if {!$one_instance_p} {
+            append data "<li>$parent_name/$instance_id"
+        }
+
+        append data "<ul>"
         
         db_foreach news_items_select {} {
-            append data "<li><a href=${parent_url}item?item_id=$item_id>$publish_title</a> <small>($publish_date)</small><BR>"
+            append data "<li><a href=${parent_url}item?item_id=$item_id>$publish_title</a> <small>($publish_date)</small>"
         }
 
         append data "</ul>"
@@ -51,4 +55,7 @@ foreach instance_id $list_of_instance_ids {
 # portlets shouldn't disappear anymore (ben)
 if {[empty_string_p $data]} {
     set data "<small>No News</small>"
+    set no_news_p "t"
+} else {
+    set no_news_p "f"
 }

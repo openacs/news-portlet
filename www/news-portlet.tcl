@@ -38,7 +38,7 @@ foreach instance_id $list_of_instance_ids {
         set parent_url [dotlrn_community::get_url_from_package_id -package_id $instance_id]
         
         if {!$one_instance_p} {
-            append data "<li>$parent_name/$instance_id"
+            append data "<li>$parent_name"
         }
 
         append data "<ul>"

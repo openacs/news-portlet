@@ -30,6 +30,8 @@ set shaded_p $config(shaded_p)
 set news_url [ad_conn package_url]
 set comm_id [dotlrn_community::get_community_id_from_url -url $news_url]
 if {[exists_and_not_null comm_id]} {
+    set root_id [ad_conn node_id]
+    set user_id [ad_conn user_id]
     set inside_comm_p 1
 } else {
     set inside_comm_p 0
@@ -39,7 +41,33 @@ if {[exists_and_not_null comm_id]} {
 set list_of_package_ids $config(package_id)
 set one_instance_p [ad_decode [llength $list_of_package_ids] 1 1 0]
 
-db_multirow -extend { publish_date view_url } news_items select_news_items {} {
+set display_item_content_p [parameter::get_from_package_key -package_key news-portlet -parameter display_item_content_p -default 0]
+set display_subgroup_items_p [parameter::get_from_package_key -package_key news-portlet -parameter display_subgroup_items_p -default 0]
+
+set display_item_attribution_p [parameter::get_from_package_key -package_key news-portlet -parameter display_item_attribution_p -default 1]
+
+if { $inside_comm_p && $display_subgroup_items_p } {
+    db_foreach select_subgroup_package_ids {} {
+        set one_instance_p 0
+        lappend list_of_package_ids $package_id
+    }
+}
+
+if { $display_item_content_p } {
+    #Only pull out the full content if we have to.
+    set content_column " , content as publish_body, html_p "
+} else {
+    set content_column ""
+}
+
+db_multirow -extend { publish_date view_url creator_url } news_items select_news_items {} {
     set publish_date [lc_time_fmt $publish_date_ansi "%x"]
     set view_url [export_vars -base "${url}item" { item_id }]
+    # text-only body
+    if {$display_item_content_p && [string equal $html_p "f"]} {
+        set publish_body "[ad_text_to_html $publish_body]"
+    }
+    if { $display_item_attribution_p } {
+        set creator_url [acs_community_member_url -user_id $creation_user]
+    }
 }

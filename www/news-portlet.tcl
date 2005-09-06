@@ -39,7 +39,11 @@ if {[exists_and_not_null comm_id]} {
 set list_of_package_ids $config(package_id)
 set one_instance_p [ad_decode [llength $list_of_package_ids] 1 1 0]
 
-db_multirow -extend { publish_date view_url } news_items select_news_items {} {
+db_multirow -extend { publish_date view_url rss_exists rss_url notification_chunk} news_items select_news_items {} {
     set publish_date [lc_time_fmt $publish_date_ansi "%x"]
     set view_url [export_vars -base "${url}item" { item_id }]
+    set rss_exists [rss_support::subscription_exists -summary_context_id $package_id -impl_name news]
+    set rss_url "[news_util_get_url $package_id]rss/rss.xml"
+    # add news email notification
+    set notification_chunk [notification::display::request_widget -type one_news_item_notif -object_id $package_id -pretty_name "News" -url [ad_return_url] ]
 }

@@ -35,7 +35,15 @@
 
       <multiple name="news_items">
 
-<if @one_instance_p@ false>@news_items.parent_name@</if>
+<if @one_instance_p@ false>
+	@news_items.parent_name@
+</if>
+
+<br/>@news_items.notification_chunk;noquote@
+<if @news_items.rss_exists@ eq 1>
+	<br/><a href="@news_items.rss_url;noquote@">#rss-support.Syndication_Feed#</a>&nbsp;<img src="/resources/xml.gif" alt="Subscribe via RSS" border=0 />
+</if>
+
 <ul>
 <group column="package_id">
   <li>
@@ -59,4 +67,3 @@
 &nbsp;
 </else>
 <if @inside_comm_p@ ><br><a href="@news_url@news/item-create">#news-portlet.Add_a_News_Item#</a></if>
-

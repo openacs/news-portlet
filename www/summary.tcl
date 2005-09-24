@@ -80,3 +80,4 @@ if { [string length $publish_body] > $summary_length } {
 
 set publish_body [ad_convert_to_html  -html_p $html_p $publish_body]
 
+set display_item_attribution_p [parameter::get_from_package_key -package_key news-portlet -parameter display_item_attribution_p -default 1]

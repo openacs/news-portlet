@@ -7,18 +7,21 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>t</singleton-p>
     
-    <version name="2.1.1" url="http://openacs.org/repository/download/apm/news-portlet-2.1.1.apm">
+    <version name="2.1.2d1" url="http://openacs.org/repository/download/apm/news-portlet-2.1.2d1.apm">
         <owner url="http://opeancs.org">OpenACS</owner>
         <release-date>2004-03-10</release-date>
         <vendor url="http://openacs.org">OpenACS</vendor>
 
-        <provides url="news-portlet" version="2.1.1"/>
+        <provides url="news-portlet" version="2.1.2d1"/>
         <requires url="new-portal" version="0.1a"/>
         <requires url="news" version="4.6"/>
 
         <callbacks>
         </callbacks>
         <parameters>
+            <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="display_item_attribution_p"  default="1" description="When displaying full item contents in the portlet, should we display the name of the person who contributed it?  Displays the contributor name when set to 1."/>
+            <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="display_item_content_p"  default="0" description="When there are multiple news items, should we display the item's full content or just the title?  Displays the content if set to 1."/>
+            <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="display_subgroup_items_p"  default="0" description="Should we display news items for just the packages listed, or for the packages' subgroups as well?  Displays the news items for subgroups if set to 1."/>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="news_portlet_force_region"  default="1" description="the portal region to put this portlet into"/>
             <parameter datatype="string"  min_n_values="1"  max_n_values="1"  name="news_portlet_pretty_name"  default="#news-portlet.pretty_name#" description="the pretty name"/>
             <parameter datatype="number"  min_n_values="1"  max_n_values="1"  name="news_portlet_summary_length"  default="1000" description="The length of the summary to display in the portlet"/>

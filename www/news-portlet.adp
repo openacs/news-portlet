@@ -52,7 +52,7 @@
           </ul>
         <br/>@news_items.notification_chunk;noquote@
         <if @news_items.rss_exists@ eq 1>
-	  <br/><a href="@news_items.rss_url;noquote@">#rss-support.Syndication_Feed#</a>&nbsp;<img src="/resources/xml.gif" alt="Subscribe via RSS" border=0 />
+	  <br/><a href="@news_items.rss_url;noquote@">#rss-support.Syndication_Feed#&nbsp;<img src="/resources/xml.gif" alt="Subscribe via RSS" width="26" height="10" border=0 /></a><hr/><br/>
         </if>
       </multiple>
     </else>

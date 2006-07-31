@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<message_catalog package_key="news-portlet" package_version="2.2.0a1" locale="ms_MY" charset="utf-8">
+<message_catalog package_key="news-portlet" package_version="2.2.0b2" locale="ms_MY" charset="utf-8">
 
   <msg key="Add_a_News_Item">Tambah Butiran Berita</msg>
   <msg key="admin_pretty_name">Penyeliaan Berita</msg>

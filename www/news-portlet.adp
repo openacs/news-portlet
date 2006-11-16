@@ -38,11 +38,14 @@
         <ul>
           <group column="package_id">
             <if @display_item_content_p@ eq "1">
+	      <li>
               <p>@news_items.publish_body;noquote@</p>
                  <if @display_item_attribution_p@ eq "1">
-                   <p>Contributed by <a href="@news_items.creator_url@">@news_items.item_creator@</a>
+                   <p>Contributed by <a href="@news_items.creator_url@">@news_items.item_creator@</a></p>
                  </if>
-            </if><else>
+	      </li>
+            </if>
+	    <else>
               <li>
               <a href="@news_items.url@item?item_id=@news_items.item_id@">@news_items.publish_title@</a>
               <small>(@news_items.publish_date@)</small>

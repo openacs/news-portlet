@@ -3,6 +3,7 @@
 
   <msg key="Add_a_News_Item">Add a News Item</msg>
   <msg key="admin_pretty_name">News Administration</msg>
+  <msg key="Contributed_by">Contributed by</msg>
   <msg key="Manage_News">Manage News</msg>
   <msg key="news_syndication_feed">News syndication feed</msg>
   <msg key="No_News">No News</msg>

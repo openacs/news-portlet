@@ -4,6 +4,6 @@
 @publish_body;noquote@
 @more_link;noquote@
 <if @display_item_attribution_p@ eq "1">
-<p>#news-portlet.Contributed_by# <a href="@creator_url@">@item_creator@</a>
+<p>Contributed by <a href="@creator_url@">@item_creator@</a></p>
 </if>
 </blockquote>

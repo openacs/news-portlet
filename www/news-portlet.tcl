@@ -59,45 +59,13 @@ if { $display_item_content_p } {
     set content_column ""
 }
 
-template::list::create -name news -multirow news_items -key item_id -pass_properties {
-    display_item_content_p
-    one_instance_p
-} -elements {
-    item {
-	label ""
-	display_template {
-           <if @one_instance_p@ false><b>@news_items.parent_name@</b></if></br>
-           <group column="package_id">
-            <if @display_item_content_p@ eq "1">
-	    <p>@news_items.publish_body;noquote@</p>
-                 <if @display_item_attribution_p@ eq "1">
-                   <p>#news-portlet.Contributed_by# <a href="@news_items.creator_url@">@news_items.item_creator@</a>
-                 </if>
-            </if><else>
-	      &raquo; <a href="@news_items.url@item?item_id=@news_items.item_id@">@news_items.publish_title@</a> 
-              <small>@news_items.publish_date@</small>
-            </else>
-                <if @news_items.rss_exists@ eq 1>
-	        <a href="@news_items.rss_url;noquote@"><img src="/resources/xml.gif" alt="Subscribe via RSS" width="26" height="10" border=0 /></a>
-                </if></br>
-           </group>
-	}
-    }
-    action {
-	label ""
-	display_template {
-	    @news_items.notification_chunk;noquote@
-	}
-    }
-}
-
 db_multirow -extend { publish_date view_url rss_exists rss_url notification_chunk} news_items select_news_items {} {
     set publish_date [lc_time_fmt $publish_date_ansi "%x"]
     set view_url [export_vars -base "${url}item" { item_id }]
     set rss_exists [rss_support::subscription_exists -summary_context_id $package_id -impl_name news]
     set rss_url "[news_util_get_url $package_id]rss/rss.xml"
     # add news email notification
-    set notification_chunk [notification::display::request_widget -style "short" -type one_news_item_notif -object_id $package_id -pretty_name "News" -url [ad_return_url] ]
+    set notification_chunk [notification::display::request_widget -type one_news_item_notif -object_id $package_id -pretty_name "News" -url [ad_return_url] ]
     
     # text-only body
     if {$display_item_content_p && [string equal $html_p "f"]} {

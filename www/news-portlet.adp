@@ -67,4 +67,4 @@
 <else>
 &nbsp;
 </else>
-<if @inside_comm_p@ ><br><a href="@news_url@news/item-create">#news-portlet.Add_a_News_Item#</a></if>
+<if @inside_comm_p@ ><br><a href="@news_url@news/item-create" title="#news-portlet.Add_a_News_Item#">#news-portlet.Add_a_News_Item#</a></if>

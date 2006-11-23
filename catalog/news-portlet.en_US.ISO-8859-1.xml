@@ -8,5 +8,5 @@
   <msg key="No_News">No News</msg>
   <msg key="pretty_name">News</msg>
   <msg key="Read_more">Read more...</msg>
-  <msg key="show_content_news_items_publish_title">Show content of the item titled %news_items.publish_title%</msg>
+  <msg key="show_content_news_items_publish_title">Show content of %news_items.publish_title%</msg>
 </message_catalog>

@@ -19,7 +19,7 @@
 %>
 
 <ul>
-  <li><a href="@url@admin">#news-portlet.Manage_News#</a></li>
-  <li><a href="@url@item-create">#news-portlet.Add_a_News_Item#</a></li>
+  <li><a href="@url@admin" title="#news-portlet.Manage_News#">#news-portlet.Manage_News#</a></li>
+  <li><a href="@url@item-create" title="#news-portlet.Add_a_News_Item#">#news-portlet.Add_a_News_Item#</a></li>
 </ul>
 

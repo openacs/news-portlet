@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<message_catalog package_key="news-portlet" package_version="2.2.0b2" locale="ar_EG" charset="utf-8">
+<message_catalog package_key="news-portlet" package_version="2.2.0" locale="ar_EG" charset="utf-8">
 
   <msg key="No_News">لا أخبار</msg>
   <msg key="pretty_name">الأخبار</msg>

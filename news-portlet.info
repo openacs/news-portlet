@@ -13,7 +13,7 @@
         <vendor url="http://openacs.org">OpenACS</vendor>
 
         <provides url="news-portlet" version="2.2.1a1"/>
-        <requires url="new-portal" version="2.2.0a1"/>
+        <requires url="new-portal" version="2.2.1a1"/>
         <requires url="news" version="5.2.0d5"/>
 
         <callbacks>

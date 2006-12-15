@@ -38,13 +38,16 @@
         <ul>
           <group column="package_id">
             <if @display_item_content_p@ eq "1">
+	      <li>
               <p>@news_items.publish_body;noquote@</p>
                  <if @display_item_attribution_p@ eq "1">
-                   <p>Contributed by <a href="@news_items.creator_url@">@news_items.item_creator@</a>
+                   <p>Contributed by <a href="@news_items.creator_url@">@news_items.item_creator@</a></p>
                  </if>
-            </if><else>
+	      </li>
+            </if>
+	    <else>
               <li>
-              <a href="@news_items.url@item?item_id=@news_items.item_id@">@news_items.publish_title@</a>
+              <a href="@news_items.url@item?item_id=@news_items.item_id@" title="#news-portlet.show_content_news_items_publish_title#">@news_items.publish_title@</a>
               <small>(@news_items.publish_date@)</small>
               </li>
             </else>
@@ -52,7 +55,7 @@
           </ul>
         <br/>@news_items.notification_chunk;noquote@
         <if @news_items.rss_exists@ eq 1>
-	  <br/><a href="@news_items.rss_url;noquote@">#rss-support.Syndication_Feed#&nbsp;<img src="/resources/xml.gif" alt="Subscribe via RSS" width="26" height="10" border=0 /></a><hr/><br/>
+	  <br/><a href="@news_items.rss_url;noquote@" title="#news-portlet.news_syndication_feed#">#rss-support.Syndication_Feed#&nbsp;<img src="/resources/xml.gif" alt="Subscribe via RSS" width="26" height="10" border=0 /></a><hr/><br/>
         </if>
       </multiple>
     </else>
@@ -64,4 +67,4 @@
 <else>
 &nbsp;
 </else>
-<if @inside_comm_p@ ><br><a href="@news_url@news/item-create">#news-portlet.Add_a_News_Item#</a></if>
+<if @inside_comm_p@ ><br><a href="@news_url@news/item-create" title="#news-portlet.Add_a_News_Item#">#news-portlet.Add_a_News_Item#</a></if>

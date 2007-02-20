@@ -32,7 +32,7 @@
 
     </if>
     <else>
-      <listtemplate name="news" style="groups"></listtemplate>    
+      <listtemplate name="news"></listtemplate>    
     </else>
   </if>
   <else>

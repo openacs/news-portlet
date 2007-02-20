@@ -59,7 +59,7 @@ if { $display_item_content_p } {
     set content_column ""
 }
 
-template::list::create -name news -multirow news_items -key item_id -pass_properties {
+template::list::create -name news -multirow news_items -key item_id -html {width 100%} -pass_properties {
     display_item_content_p
     one_instance_p
 } -elements {

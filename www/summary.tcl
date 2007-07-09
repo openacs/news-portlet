@@ -36,6 +36,7 @@ select item_id,
 from   news_items_live_or_submitted
 where  item_id = :item_id"]
 
+set publish_date [lc_time_fmt $publish_date "%x"]
 set creator_url [acs_community_member_url -user_id $creation_user]
 
 if { $item_exist_p } {

@@ -14,7 +14,7 @@
 
         <provides url="news-portlet" version="2.4.0b1"/>
         <requires url="new-portal" version="2.4.0b1"/>
-        <requires url="news" version="5.2.0d6"/>
+        <requires url="news" version="5.2.0d7"/>
 
         <callbacks>
         </callbacks>

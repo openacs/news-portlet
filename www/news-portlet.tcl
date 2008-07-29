@@ -80,7 +80,7 @@ template::list::create -name news -multirow news_items -key item_id -html {width
               <small>@news_items.publish_date@</small>
             </else>
                 <if @news_items.rss_exists@ eq 1>
-	        <a href="@news_items.rss_url;noquote@"><img src="/resources/xml.gif" alt="Subscribe via RSS" width="26" height="10" border=0 /></a>
+	        <a href="@news_items.rss_url;noquote@"><img src="/resources/xml.gif" alt="Subscribe via RSS" width="26" height="10" style="border:0"></a>
                 </if><br>
            </group>
 	}

@@ -67,7 +67,7 @@ template::list::create -name news -multirow news_items -key item_id -html {width
 	label ""
 	html {valign top}
 	display_template {
-           <if @one_instance_p@ false><b>@news_items.parent_name@</b><br/></if>	   
+           <if @one_instance_p@ false><b>@news_items.parent_name@</b><br></if>	   
            <group column="package_id">
             <if @display_item_content_p@ eq "1">
 	    <p>@news_items.publish_body;noquote@</p>
@@ -81,7 +81,7 @@ template::list::create -name news -multirow news_items -key item_id -html {width
             </else>
                 <if @news_items.rss_exists@ eq 1>
 	        <a href="@news_items.rss_url;noquote@"><img src="/resources/xml.gif" alt="Subscribe via RSS" width="26" height="10" border=0 /></a>
-                </if><br/>
+                </if><br>
            </group>
 	}
     }

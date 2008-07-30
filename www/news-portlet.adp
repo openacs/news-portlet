@@ -25,9 +25,9 @@
     <if @news_items:rowcount@ eq 1>
 
       <multiple name="news_items">
-	<include src="summary" 
-	item_id="@news_items.item_id@"
-	url="@news_items.view_url@">
+          <include src="summary" 
+            item_id="@news_items.item_id@"
+            url="@news_items.view_url@">
       </multiple>
 
     </if>
@@ -38,10 +38,12 @@
   <else>
     <small>#news-portlet.No_News#</small>
   </else>
+  <if @inside_comm_p@ >
+    <p><a href="@news_url@news/item-create" title="#news-portlet.Add_a_News_Item#">#news-portlet.Add_a_News_Item#</a></p>
+  </if>
 </if>
 <else>
   <small>
     #new-portal.when_portlet_shaded#
   </small>
 </else>
-<if @inside_comm_p@ ><br><a href="@news_url@news/item-create" title="#news-portlet.Add_a_News_Item#">#news-portlet.Add_a_News_Item#</a></if>

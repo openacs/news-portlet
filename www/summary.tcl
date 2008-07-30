@@ -76,9 +76,11 @@ set more_link ""
 set summary_length [news_portlet::get_summary_length]
 if { [string length $publish_body] > $summary_length } {
     set publish_body [string_truncate -len $summary_length -- $publish_body]
-    set more_link "<br><b>&raquo;</b> <a href=\"$url\">[_ news-portlet.Read_more]</a>"
+    set more_link "<p><b>&raquo;</b> <a href=\"$url\">[_ news-portlet.Read_more]</a></p>"
 }
 
-set publish_body [ad_convert_to_html  -html_p $html_p $publish_body]
+if { !$html_p } {
+    set publish_body "<p>[ad_html_text_convert -from "text/plain" -to "text/html" -- $publish_body]</p>"
+}
 
 set display_item_attribution_p [parameter::get_from_package_key -package_key news-portlet -parameter display_item_attribution_p -default 1]

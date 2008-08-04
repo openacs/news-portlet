@@ -7,14 +7,14 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>t</singleton-p>
     
-    <version name="2.4.0" url="http://openacs.org/repository/download/apm/news-portlet-2.4.0.apm">
+    <version name="2.4.1d1" url="http://openacs.org/repository/download/apm/news-portlet-2.4.1d1.apm">
         <owner url="http://opeancs.org">OpenACS</owner>
         <release-date>2008-06-22</release-date>
         <vendor url="http://openacs.org">OpenACS</vendor>
 
-        <provides url="news-portlet" version="2.4.0"/>
+        <provides url="news-portlet" version="2.4.1d1"/>
         <requires url="new-portal" version="2.4.0"/>
-        <requires url="news" version="5.2.0d7"/>
+        <requires url="news" version="5.2.0b1"/>
 
         <callbacks>
         </callbacks>

@@ -6,9 +6,7 @@
   <msg key="Contributed_by">Contributed by</msg>
   <msg key="goto_item_creator_commpage">Go to %item_creator% community page</msg>
   <msg key="Manage_News">Manage News</msg>
-  <msg key="news_syndication_feed">News syndication feed</msg>
   <msg key="No_News">No News</msg>
   <msg key="pretty_name">News</msg>
   <msg key="Read_more">Read more...</msg>
-  <msg key="show_content_news_items_publish_title">Show content of %news_items.publish_title%</msg>
 </message_catalog>

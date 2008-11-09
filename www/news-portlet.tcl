@@ -45,7 +45,17 @@ set display_item_content_p [parameter::get_from_package_key -package_key news-po
 set display_subgroup_items_p [parameter::get_from_package_key -package_key news-portlet -parameter display_subgroup_items_p -default 0]
 set display_item_attribution_p [parameter::get_from_package_key -package_key news-portlet -parameter display_item_attribution_p -default 1]
 
+if { $inside_comm_p } {
+    set package_id $config(package_id)
+    set rss_exists [rss_support::subscription_exists -summary_context_id $package_id -impl_name news]
+    set rss_url "[news_util_get_url $package_id]rss/rss.xml"
+
+    # add news email notification
+    set notification_chunk [notification::display::request_widget -type one_news_item_notif -object_id $package_id -pretty_name "News" -url [ad_return_url] ]
+}
+
 if { $inside_comm_p && $display_subgroup_items_p } {
+
     db_foreach select_subgroup_package_ids {} {
         set one_instance_p 0
         lappend list_of_package_ids $package_id
@@ -59,54 +69,36 @@ if { $display_item_content_p } {
     set content_column ""
 }
 
-template::list::create -name news -multirow news_items -key item_id -html {width 100%} -pass_properties {
-    display_item_content_p
-    one_instance_p
-} -elements {
-    item {
-	label ""
-	html {valign top}
-	display_template {
-           <if @one_instance_p@ false><b>@news_items.parent_name@</b><br/></if>	   
-           <group column="package_id">
-            <if @display_item_content_p@ eq "1">
-	    <p>@news_items.publish_body;noquote@</p>
-                 <if @display_item_attribution_p@ eq "1">
-                   <p>#news-portlet.Contributed_by# <a href="@news_items.creator_url@">@news_items.item_creator@</a>
-                 </if>
-            </if>
-            <else>
-	      &raquo; <a href="@news_items.url@item?item_id=@news_items.item_id@">@news_items.publish_title@</a> 
-              <small>@news_items.publish_date@</small>
-            </else>
-                <if @news_items.rss_exists@ eq 1>
-	        <a href="@news_items.rss_url;noquote@"><img src="/resources/xml.gif" alt="Subscribe via RSS" width="26" height="10" border=0 /></a>
-                </if><br/>
-           </group>
-	}
-    }
-    action {
-	label ""
-	html {valign top}
-	display_template {
-	    @news_items.notification_chunk;noquote@
-	}
-    }
-}
-
-db_multirow -extend { publish_date view_url rss_exists rss_url notification_chunk} news_items select_news_items {} {
-    set publish_date [lc_time_fmt $publish_date_ansi "%x"]
+db_multirow -extend { publish_date view_url } news_items select_news_items {} {
+    set publish_date [lc_time_fmt $publish_date_ansi "%q"]
     set view_url [export_vars -base "${url}item" { item_id }]
-    set rss_exists [rss_support::subscription_exists -summary_context_id $package_id -impl_name news]
-    set rss_url "[news_util_get_url $package_id]rss/rss.xml"
-    # add news email notification
-    set notification_chunk [notification::display::request_widget -type one_news_item_notif -object_id $package_id -pretty_name "News" -url [ad_return_url] ]
-    
+
     # text-only body
-    if {$display_item_content_p && [string equal $html_p "f"]} {
+    if {$display_item_content_p && $html_p eq "f" } {
         set publish_body "[ad_text_to_html $publish_body]"
     }
     if { $display_item_attribution_p } {
         set creator_url [acs_community_member_url -user_id $creation_user]
     }
 }
+
+set elms {
+    publish_date {
+        label "[_ news.Release_Date]"
+    }
+    publish_title {
+        label "[_ news.Title]"
+        link_url_col view_url
+    }
+}
+ 
+if { !$inside_comm_p } {
+    lappend elms parent_name {label "[_ acs-kernel.Group]"}
+}
+
+template::list::create -name news -multirow news_items -key item_id -pass_properties {
+    display_item_content_p
+    one_instance_p
+} -elements $elms
+
+

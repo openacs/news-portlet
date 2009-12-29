@@ -64,7 +64,7 @@ if { $inside_comm_p && $display_subgroup_items_p } {
 
 if { $display_item_content_p } {
     #Only pull out the full content if we have to.
-    set content_column " , content as publish_body, html_p "
+    set content_column " , content as publish_body, mime_type as publish_format "
 } else {
     set content_column ""
 }
@@ -74,8 +74,9 @@ db_multirow -extend { publish_date view_url } news_items select_news_items {} {
     set view_url [export_vars -base "${url}item" { item_id }]
 
     # text-only body
-    if {$display_item_content_p && $html_p eq "f" } {
-        set publish_body "[ad_text_to_html $publish_body]"
+    if {$display_item_content_p } {
+        set publish_body \
+            [ad_html_text_convert -from $publish_format -to text/html -- $publish_body]
     }
     if { $display_item_attribution_p } {
         set creator_url [acs_community_member_url -user_id $creation_user]

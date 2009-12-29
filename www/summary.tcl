@@ -15,7 +15,7 @@ ad_page_contract {
     publish_title:onevalue
     publish_date:onevalue
     publish_body:onevalue
-    html_p:onevalue
+    publish_format:onevalue
     creator_link:onevalue
     comments:onevalue
     comment_link:onevalue
@@ -29,7 +29,8 @@ set item_exist_p [db_0or1row one_item "
 select item_id,
        live_revision,
        publish_title,
-       html_p,
+       publish_body,
+       publish_format,
        publish_date,
        creation_user,
        item_creator
@@ -40,18 +41,6 @@ set publish_date [lc_time_fmt $publish_date "%x"]
 set creator_url [acs_community_member_url -user_id $creation_user]
 
 if { $item_exist_p } {
-
-    # workaround to get blobs with >4000 chars into a var, content.blob_to_string fails! 
-    # when this'll work, you get publish_body by selecting 'publish_body' directly from above view
-    #
-    # RAL: publish_body is already snagged in the 1st query above for postgres.
-    # CERM: This work around is not used here, so this may not work for postgres.
-    #
-
-	set publish_body [db_string get_content "select  content
-	from    cr_revisions
-	where   revision_id = :live_revision"]
-
 
 #currently not using comments in the summary but someone might want to change the template so they are available.    
     if { [ad_parameter SolicitCommentsP "news" 0] &&
@@ -79,8 +68,6 @@ if { [string length $publish_body] > $summary_length } {
     set more_link "<p><b>&raquo;</b> <a href=\"$url\">[_ news-portlet.Read_more]</a></p>"
 }
 
-if { !$html_p } {
-    set publish_body "<p>[ad_html_text_convert -from "text/plain" -to "text/html" -- $publish_body]</p>"
-}
+set publish_body "<p>[ad_html_text_convert -from $publish_format -to "text/html" -- $publish_body]</p>"
 
 set display_item_attribution_p [parameter::get_from_package_key -package_key news-portlet -parameter display_item_attribution_p -default 1]

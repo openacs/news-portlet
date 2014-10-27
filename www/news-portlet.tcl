@@ -29,7 +29,7 @@ set shaded_p $config(shaded_p)
 
 set news_url [ad_conn package_url]
 set comm_id [dotlrn_community::get_community_id_from_url -url $news_url]
-if {[exists_and_not_null comm_id]} {
+if {$comm_id ne ""} {
     set root_id [ad_conn node_id]
     set user_id [ad_conn user_id]
     set inside_comm_p 1

@@ -33,18 +33,24 @@
 --
 
 
-create function inline_1()
-returns integer as '
-declare  
+
+
+--
+-- procedure inline_1/0
+--
+CREATE OR REPLACE FUNCTION inline_1(
+
+) RETURNS integer AS $$
+DECLARE  
   ds_id portal_datasources.datasource_id%TYPE;
-begin
+BEGIN
 
   select datasource_id into ds_id
       from portal_datasources
-     where name = ''news_portlet'';
+     where name = 'news_portlet';
 
    if not found then
-     RAISE EXCEPTION '' No datasource id found '', ds_id;
+     RAISE EXCEPTION ' No datasource id found ', ds_id;
      ds_id := null;
    end if;
 
@@ -54,62 +60,63 @@ begin
 
 	-- drop the hooks
 	perform acs_sc_impl_alias__delete (
-	       ''portal_datasource'',
-	       ''news_portlet'',
-	       ''GetMyName''
+	       'portal_datasource',
+	       'news_portlet',
+	       'GetMyName'
 	);
 
 	perform acs_sc_impl_alias__delete (
-	       ''portal_datasource'',
-	       ''news_portlet'',
-	       ''GetPrettyName''
+	       'portal_datasource',
+	       'news_portlet',
+	       'GetPrettyName'
 	);
 
 
 	perform acs_sc_impl_alias__delete (
-	       ''portal_datasource'',
-	       ''news_portlet'',
-	       ''Link''
+	       'portal_datasource',
+	       'news_portlet',
+	       'Link'
 	);
 
 	perform acs_sc_impl_alias__delete (
-	       ''portal_datasource'',
-	       ''news_portlet'',
-	       ''AddSelfToPage''
+	       'portal_datasource',
+	       'news_portlet',
+	       'AddSelfToPage'
 	);
 
 	perform acs_sc_impl_alias__delete (
-	       ''portal_datasource'',
-	       ''news_portlet'',
-	       ''Show''
+	       'portal_datasource',
+	       'news_portlet',
+	       'Show'
 	);
 
 	perform acs_sc_impl_alias__delete (
-	       ''portal_datasource'',
-	       ''news_portlet'',
-	       ''Edit''
+	       'portal_datasource',
+	       'news_portlet',
+	       'Edit'
 	);
 
 	perform acs_sc_impl_alias__delete (
-	       ''portal_datasource'',
-	       ''news_portlet'',
-	       ''RemoveSelfFromPage''
+	       'portal_datasource',
+	       'news_portlet',
+	       'RemoveSelfFromPage'
 	);
 
 	-- Drop the binding
 	perform acs_sc_binding__delete (
-	    ''portal_datasource'',
-	    ''news_portlet''
+	    'portal_datasource',
+	    'news_portlet'
 	);
 
 	-- drop the impl
 	perform acs_sc_impl__delete (
-		''portal_datasource'',
-		''news_portlet''
+		'portal_datasource',
+		'news_portlet'
 	);
   	
 	return 0;
-end;' language 'plpgsql';
+END;
+$$ LANGUAGE plpgsql;
 
 select inline_1();
 drop function inline_1();

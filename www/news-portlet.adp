@@ -38,8 +38,8 @@
 
         <multiple name="news_items">
           <include src="summary" 
-            item_id="@news_items.item_id@"
-            url="@news_items.view_url@">
+            item_id="@news_items.item_id;literal@"
+            url="@news_items.view_url;literal@">
         </multiple>
         
       </if>

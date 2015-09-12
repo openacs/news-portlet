@@ -103,3 +103,9 @@ template::list::create -name news -multirow news_items -key item_id -pass_proper
 } -elements $elms
 
 
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

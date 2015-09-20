@@ -49,18 +49,16 @@ if { $inside_comm_p } {
     set package_id $config(package_id)
     set rss_exists [rss_support::subscription_exists -summary_context_id $package_id -impl_name news]
     set rss_url "[news_util_get_url $package_id]rss/rss.xml"
+    set news_url [ad_return_url]
 
-    # add news email notification
-    set notification_chunk [notification::display::request_widget -type one_news_item_notif -object_id $package_id -pretty_name "News" -url [ad_return_url] ]
-}
-
-if { $inside_comm_p && $display_subgroup_items_p } {
-
-    db_foreach select_subgroup_package_ids {} {
-        set one_instance_p 0
-        lappend list_of_package_ids $package_id
+    if { $display_subgroup_items_p } {
+        db_foreach select_subgroup_package_ids {} {
+            set one_instance_p 0
+            lappend list_of_package_ids $package_id
+        }
     }
 }
+
 
 if { $display_item_content_p } {
     #Only pull out the full content if we have to.

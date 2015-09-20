@@ -25,7 +25,12 @@
           <a href="@news_url@news/item-create" title="#news-portlet.Add_a_News_Item#" class="button">#news-portlet.Add_a_News_Item#</a>
         </div>
         <div>
-          @notification_chunk;noquote@
+<if @news_url@ not nil>
+<include src="/packages/notifications/lib/notification-widget" type="one_news_item_notif"
+	 object_id="@package_id;literal@"
+	 pretty_name="News"
+	 url="@news_url;literal@" >
+</if>	 
           <if @rss_exists@ eq 1>
             <br>
               <a href="@rss_url@"><img src="/resources/xml.gif" alt="Subscribe via RSS" width="26" height="10" style="border:0; padding-right:3px">#rss-support.Syndication_Feed#</a>

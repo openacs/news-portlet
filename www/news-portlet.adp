@@ -22,15 +22,15 @@
     <if @inside_comm_p@ >
       <div style="padding-top:0.2em; padding-bottom:0.3em;">
         <div style="float:right;">
-          <a href="@news_url@news/item-create" title="#news-portlet.Add_a_News_Item#" class="button">#news-portlet.Add_a_News_Item#</a>
+          <a href="@news_url@item-create" title="#news-portlet.Add_a_News_Item#" class="button">#news-portlet.Add_a_News_Item#</a>
         </div>
         <div>
 <if @news_url@ not nil>
 <include src="/packages/notifications/lib/notification-widget" type="one_news_item_notif"
-	 object_id="@package_id;literal@"
-	 pretty_name="News"
-	 url="@news_url;literal@" >
-</if>	 
+     object_id="@package_id;literal@"
+     pretty_name="News"
+     url="@news_url;literal@" >
+</if>    
           <if @rss_exists@ eq 1>
             <br>
               <a href="@rss_url@"><img src="/resources/xml.gif" alt="Subscribe via RSS" width="26" height="10" style="border:0; padding-right:3px">#rss-support.Syndication_Feed#</a>
@@ -49,7 +49,24 @@
         
       </if>
       <else>
-        <listtemplate name="news"></listtemplate>    
+
+        <multiple name="news_items">
+          <if @one_instance_p@ false>
+            <h3 class="portlet">@news_items.parent_name@</h3>
+          </if>
+
+          <ul>
+            <group column="package_id">
+              <li>
+                <a href="@news_items.view_url@">@news_items.publish_title@</a>
+                (<if @display_item_attribution_p@ true>#news-portlet.Contributed_by# @news_items.item_creator@ - </if>@news_items.publish_date@)
+                <if @display_item_lead_p@ true> <br>@news_items.publish_lead@</if>
+                <if @display_item_content_p@ true> <br>@news_items.publish_body@</if>
+              </li>
+            </group>
+          </ul>
+        </multiple>
+
       </else>
     </if>
     <else>

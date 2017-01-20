@@ -51,7 +51,7 @@
       <else>
 
         <multiple name="news_items">
-          <if @one_instance_p@ false>
+          <if @one_instance_p;literal@ false>
             <h3 class="portlet">@news_items.parent_name@</h3>
           </if>
 
@@ -59,9 +59,9 @@
             <group column="package_id">
               <li>
                 <a href="@news_items.view_url@">@news_items.publish_title@</a>
-                (<if @display_item_attribution_p@ true>#news-portlet.Contributed_by# @news_items.item_creator@ - </if>@news_items.publish_date@)
-                <if @display_item_lead_p@ true> <br>@news_items.publish_lead@</if>
-                <if @display_item_content_p@ true> <br>@news_items.publish_body@</if>
+                (<if @display_item_attribution_p;literal@ true>#news-portlet.Contributed_by# @news_items.item_creator@ - </if>@news_items.publish_date@)
+                <if @display_item_lead_p;literal@ true> <br>@news_items.publish_lead@</if>
+                <if @display_item_content_p;literal@ true> <br>@news_items.publish_body@</if>
               </li>
             </group>
           </ul>

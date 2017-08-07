@@ -26,6 +26,9 @@
 
 array set config $cf	
 set shaded_p $config(shaded_p)
+if { $config(shaded_p)=="t" } {
+   return
+}
 
 set news_url [ad_conn package_url]
 set comm_id [dotlrn_community::get_community_id_from_url -url $news_url]
@@ -41,37 +44,57 @@ if {$comm_id ne ""} {
 set list_of_package_ids $config(package_id)
 set one_instance_p [ad_decode [llength $list_of_package_ids] 1 1 0]
 
-set display_item_content_p [parameter::get_from_package_key -package_key news-portlet -parameter display_item_content_p -default 0]
-set display_subgroup_items_p [parameter::get_from_package_key -package_key news-portlet -parameter display_subgroup_items_p -default 0]
-set display_item_attribution_p [parameter::get_from_package_key -package_key news-portlet -parameter display_item_attribution_p -default 1]
+set display_item_content_p [parameter::get_from_package_key \
+    -package_key news-portlet \
+    -parameter display_item_content_p \
+    -default 0]
+set display_item_lead_p [parameter::get_from_package_key \
+    -package_key news-portlet \
+    -parameter display_item_lead_p \
+    -default 1]
+set display_subgroup_items_p [parameter::get_from_package_key \
+    -package_key news-portlet \
+    -parameter display_subgroup_items_p \
+    -default 0]
+set display_item_attribution_p [parameter::get_from_package_key \
+    -package_key news-portlet \
+    -parameter display_item_attribution_p \
+    -default 1]
+
+
 
 if { $inside_comm_p } {
     set package_id $config(package_id)
     set rss_exists [rss_support::subscription_exists -summary_context_id $package_id -impl_name news]
     set rss_url "[news_util_get_url $package_id]rss/rss.xml"
+    set news_url [news_util_get_url $package_id]
 
-    # add news email notification
-    set notification_chunk [notification::display::request_widget -type one_news_item_notif -object_id $package_id -pretty_name "News" -url [ad_return_url] ]
-}
-
-if { $inside_comm_p && $display_subgroup_items_p } {
-
-    db_foreach select_subgroup_package_ids {} {
-        set one_instance_p 0
-        lappend list_of_package_ids $package_id
+    if { $display_subgroup_items_p } {
+        db_foreach select_subgroup_package_ids {} {
+            set one_instance_p 0
+            lappend list_of_package_ids $package_id
+        }
     }
 }
 
-if { $display_item_content_p } {
-    #Only pull out the full content if we have to.
-    set content_column " , content as publish_body, mime_type as publish_format "
-} else {
-    set content_column ""
+set content_column ""
+
+if { $display_item_content_p } { 
+    lappend content_column publish_body publish_format
+}
+if { $display_item_lead_p }  {
+    lappend content_column publish_lead
 }
 
-db_multirow -extend { publish_date view_url } news_items select_news_items {} {
+if {[llength $content_column] > 0 } {
+    set content_column ,[join $content_column ,]
+}
+
+db_multirow -extend { publish_date view_url creator_url} news_items select_news_items {} {
     set publish_date [lc_time_fmt $publish_date_ansi "%q"]
+    if { [info exists ipackages($package_id)] } {set url $ipackages($package_id)}
     set view_url [export_vars -base "${url}item" { item_id }]
+    set creator_url ""
 
     # text-only body
     if {$display_item_content_p } {
@@ -83,23 +106,8 @@ db_multirow -extend { publish_date view_url } news_items select_news_items {} {
     }
 }
 
-set elms {
-    publish_date {
-        label "[_ news.Release_Date]"
-    }
-    publish_title {
-        label "[_ news.Title]"
-        link_url_col view_url
-    }
-}
- 
-if { !$inside_comm_p } {
-    lappend elms parent_name {label "[_ acs-kernel.Group]"}
-}
-
-template::list::create -name news -multirow news_items -key item_id -pass_properties {
-    display_item_content_p
-    one_instance_p
-} -elements $elms
-
-
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

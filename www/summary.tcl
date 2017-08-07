@@ -71,3 +71,9 @@ if { [string length $publish_body] > $summary_length } {
 set publish_body "<p>[ad_html_text_convert -from $publish_format -to "text/html" -- $publish_body]</p>"
 
 set display_item_attribution_p [parameter::get_from_package_key -package_key news-portlet -parameter display_item_attribution_p -default 1]
+
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:

@@ -18,7 +18,7 @@
 
 %>
 
-  <if @shaded_p;literal@ ne "t">
+  <if @shaded_p;literal@ false>
     <if @inside_comm_p;literal@ true>
       <div style="padding-top:0.2em; padding-bottom:0.3em;">
         <div style="float:right;">

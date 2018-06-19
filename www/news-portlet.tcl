@@ -70,9 +70,10 @@ if { $inside_comm_p } {
     set news_url [news_util_get_url $package_id]
 
     if { $display_subgroup_items_p } {
-        db_foreach select_subgroup_package_ids {} {
+        set subgroup_package_ids [db_list select_subgroup_package_ids {}]
+        if {[llength $subgroup_package_ids] > 0} {
             set one_instance_p 0
-            lappend list_of_package_ids $package_id
+            lappend list_of_package_ids {*}$subgroup_package_ids
         }
     }
 }
@@ -90,20 +91,42 @@ if {[llength $content_column] > 0 } {
     set content_column ,[join $content_column ,]
 }
 
-db_multirow -extend { publish_date view_url creator_url} news_items select_news_items {} {
+db_multirow -extend { publish_date view_url creator_url } news_items select_news_items [subst {
+      select news_items_approved.package_id,
+             (select instance_name
+                from apm_packages pp,
+                     site_nodes pn
+               where pp.package_id = pn.object_id
+                 and pn.node_id = n.parent_id) as parent_name,
+             n.node_id,
+             item_id,
+             publish_title,
+             to_char(news_items_approved.publish_date, 'YYYY-MM-DD HH24:MI:SS') as publish_date_ansi,
+             item_creator,
+             creation_user
+             $content_column
+      from news_items_approved
+           left join site_nodes n on n.object_id = news_items_approved.package_id
+      where publish_date < current_timestamp
+      and (archive_date >= current_timestamp or archive_date is null)
+      and package_id in ([join $list_of_package_ids ", "])    
+      order by package_id,
+               parent_name,
+               publish_date desc,
+               publish_title
+}] {
     set publish_date [lc_time_fmt $publish_date_ansi "%q"]
-    if { [info exists ipackages($package_id)] } {set url $ipackages($package_id)}
+    set url [expr {[info exists ipackages($package_id)] ? 
+                   $ipackages($package_id) : [site_node::get_url -node_id $node_id]}]
     set view_url [export_vars -base "${url}item" { item_id }]
-    set creator_url ""
 
     # text-only body
     if {$display_item_content_p } {
         set publish_body \
             [ad_html_text_convert -from $publish_format -to text/html -- $publish_body]
     }
-    if { $display_item_attribution_p } {
-        set creator_url [acs_community_member_url -user_id $creation_user]
-    }
+    set creator_url [expr {$display_item_attribution_p ?
+                           [acs_community_member_url -user_id $creation_user] : ""}]
 }
 
 # Local variables:

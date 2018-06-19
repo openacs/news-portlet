@@ -22,9 +22,9 @@
 # The logic for the news portlet
 #
 # $Id$
-# 
+#
 
-array set config $cf	
+array set config $cf
 set shaded_p $config(shaded_p)
 if { $config(shaded_p)=="t" } {
    return
@@ -62,7 +62,6 @@ set display_item_attribution_p [parameter::get_from_package_key \
     -default 1]
 
 
-
 if { $inside_comm_p } {
     set package_id $config(package_id)
     set rss_exists [rss_support::subscription_exists -summary_context_id $package_id -impl_name news]
@@ -80,7 +79,7 @@ if { $inside_comm_p } {
 
 set content_column ""
 
-if { $display_item_content_p } { 
+if { $display_item_content_p } {
     lappend content_column publish_body publish_format
 }
 if { $display_item_lead_p }  {
@@ -109,14 +108,14 @@ db_multirow -extend { publish_date view_url creator_url } news_items select_news
            left join site_nodes n on n.object_id = news_items_approved.package_id
       where publish_date < current_timestamp
       and (archive_date >= current_timestamp or archive_date is null)
-      and package_id in ([join $list_of_package_ids ", "])    
+      and package_id in ([join $list_of_package_ids ", "])
       order by package_id,
                parent_name,
                publish_date desc,
                publish_title
 }] {
     set publish_date [lc_time_fmt $publish_date_ansi "%q"]
-    set url [expr {[info exists ipackages($package_id)] ? 
+    set url [expr {[info exists ipackages($package_id)] ?
                    $ipackages($package_id) : [site_node::get_url -node_id $node_id]}]
     set view_url [export_vars -base "${url}item" { item_id }]
 

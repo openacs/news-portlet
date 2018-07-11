@@ -38,6 +38,8 @@ namespace eval news_portlet {
 
     ad_proc -public get_pretty_name {
     } {
+        Get pretty name.
+    } {
         return [parameter::get_from_package_key \
                     -package_key [my_package_key] \
                     -parameter news_portlet_pretty_name
@@ -46,6 +48,8 @@ namespace eval news_portlet {
 
     ad_proc -public get_summary_length {
     } {
+        Get configured summary length for the portlet.
+    } {
         return [parameter::get_from_package_key \
                     -package_key [my_package_key] \
                     -parameter news_portlet_summary_length
@@ -53,6 +57,8 @@ namespace eval news_portlet {
     }
 
     ad_proc -public link {
+    } {
+        Get link. This is currently empty.
     } {
 	return ""
     }
@@ -86,7 +92,7 @@ namespace eval news_portlet {
 	{-package_id:required}
     } {
         Removes a news PE from the given page or the package_id of the
-        news package from the portlet if there are others remaining
+        news package from the portlet if there are others remaining.
 
         @param portal_id The page to remove self from
         @param package_id
@@ -98,8 +104,9 @@ namespace eval news_portlet {
     }
 
     ad_proc -public show {
-	 cf
+        cf
     } {
+        Show the news portlet.
     } {
         portal::show_proc_helper \
             -package_key [my_package_key] \

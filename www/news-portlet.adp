@@ -38,8 +38,8 @@
         </div>
       </div>
     </if>
-    <if @news_items:rowcount@ gt 0>
-      <if @news_items:rowcount@ eq 1>
+    <if @news_items:rowcount;literal@ gt 0>
+      <if @news_items:rowcount;literal@ eq 1>
 
         <multiple name="news_items">
           <include src="summary"

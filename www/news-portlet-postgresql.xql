@@ -7,17 +7,16 @@
         <querytext>
             select package_id
             from apm_packages p right outer join
-                 (select n.object_id,
-                  n.parent_id,
-                  tree_level(n.tree_sortkey) as mylevel
-                  from site_nodes n, site_nodes root
-                  where (n.object_id is null
-                    or acs_permission__permission_p(n.object_id, :user_id, 'read') = 't')
-                  and root.node_id = :root_id
-                  and n.tree_sortkey
-                    between root.tree_sortkey and tree_right(root.tree_sortkey)) site_map
+               ( WITH RECURSIVE site_node_tree AS (
+                    select node_id, parent_id, object_id from site_nodes where node_id = :root_id
+                 UNION ALL
+                    select c.node_id, c.parent_id, c.object_id from site_node_tree tree, site_nodes as c
+                    where  c.parent_id = tree.node_id
+                 )
+		 select * from site_node_tree n) site_map
             on site_map.object_id = p.package_id
             where package_key = 'news'
+	    and (site_map.object_id is null or acs_permission__permission_p(site_map.object_id, :user_id, 'read') = 't')
         </querytext>
     </fullquery>
 

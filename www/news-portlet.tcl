@@ -42,7 +42,7 @@ if {$comm_id ne ""} {
 
 # Should be a list already! XXX rename me!
 set list_of_package_ids $config(package_id)
-set one_instance_p [ad_decode [llength $list_of_package_ids] 1 1 0]
+set one_instance_p [expr {[llength $list_of_package_ids] == 1}]
 
 set display_item_content_p [parameter::get_from_package_key \
     -package_key news-portlet \

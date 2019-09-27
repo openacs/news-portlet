@@ -23,6 +23,9 @@
 #
 # $Id$
 #
+ad_include_contract {
+    News Portlet
+}
 
 array set config $cf
 set shaded_p $config(shaded_p)

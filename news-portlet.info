@@ -23,13 +23,13 @@
         <callbacks>
         </callbacks>
         <parameters>
-            <parameter scope="instance" datatype="number"  min_n_values="1"  max_n_values="1"  name="display_item_attribution_p"  default="1" description="When displaying full item contents in the portlet, should we display the name of the person who contributed it?  Displays the contributor name when set to 1."/>
-            <parameter scope="instance" datatype="number"  min_n_values="1"  max_n_values="1"  name="display_item_content_p"  default="0" description="When there are multiple news items, should we display the item's full content or just the title?  Displays the content if set to 1."/>
-            <parameter scope="instance" datatype="number"  min_n_values="1"  max_n_values="1"  name="display_subgroup_items_p"  default="0" description="Should we display news items for just the packages listed, or for the packages' subgroups as well?  Displays the news items for subgroups if set to 1."/>
-            <parameter scope="instance" datatype="number"  min_n_values="1"  max_n_values="1"  name="display_item_lead_p"  default="0" description="Should we display news leads in the portlet?."/>
-            <parameter scope="instance" datatype="number"  min_n_values="1"  max_n_values="1"  name="news_portlet_force_region"  default="1" description="the portal region to put this portlet into"/>
-            <parameter scope="instance" datatype="string"  min_n_values="1"  max_n_values="1"  name="news_portlet_pretty_name"  default="#news-portlet.pretty_name#" description="the pretty name"/>
-            <parameter scope="instance" datatype="number"  min_n_values="1"  max_n_values="1"  name="news_portlet_summary_length"  default="1000" description="The length of the summary to display in the portlet"/>
+            <parameter scope="instance" datatype="number" min_n_values="1" max_n_values="1" name="display_item_attribution_p" default="1" description="When displaying full item contents in the portlet, should we display the name of the person who contributed it?  Displays the contributor name when set to 1."/>
+            <parameter scope="instance" datatype="number" min_n_values="1" max_n_values="1" name="display_item_content_p" default="0" description="When there are multiple news items, should we display the item's full content or just the title?  Displays the content if set to 1."/>
+            <parameter scope="instance" datatype="number" min_n_values="1" max_n_values="1" name="display_subgroup_items_p" default="0" description="Should we display news items for just the packages listed, or for the subgroups of the packages as well?  Displays the news items for subgroups if set to 1."/>
+            <parameter scope="instance" datatype="number" min_n_values="1" max_n_values="1" name="display_item_lead_p" default="0" description="Should we display news leads in the portlet?."/>
+            <parameter scope="instance" datatype="number" min_n_values="1" max_n_values="1" name="news_portlet_force_region" default="1" description="the portal region to put this portlet into"/>
+            <parameter scope="instance" datatype="string" min_n_values="1" max_n_values="1" name="news_portlet_pretty_name" default="#news-portlet.pretty_name#" description="the pretty name"/>
+            <parameter scope="instance" datatype="number" min_n_values="1" max_n_values="1" name="news_portlet_summary_length" default="1000" description="The length of the summary to display in the portlet"/>
         </parameters>
 
     </version>

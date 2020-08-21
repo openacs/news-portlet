@@ -9,14 +9,16 @@ ad_library {
 aa_register_case -procs {
         news_admin_portlet::link
         news_portlet::link
+        news_admin_portlet::get_pretty_name
     } -cats {
         api
         production_safe
-    } news_portlet_links {
-        Test diverse link procs.
+    } news_portlet_links_names {
+        Test diverse link and name procs.
 } {
-    aa_equals "News admin portlet link" "[news_admin_portlet::link]" ""
-    aa_equals "News portlet link"       "[news_portlet::link]" ""
+    aa_equals "News admin portlet link"         "[news_admin_portlet::link]" ""
+    aa_equals "News portlet link"               "[news_portlet::link]" ""
+    aa_equals "News admin portlet pretty name"  "[news_admin_portlet::get_pretty_name]" "#news-portlet.admin_pretty_name#"
 }
 
 # Local variables:

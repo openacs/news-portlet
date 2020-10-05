@@ -7,8 +7,9 @@ ad_library {
 }
 
 aa_register_case -procs {
-        news_admin_portlet::link
         news_portlet::link
+        news_portlet::get_pretty_name
+        news_admin_portlet::link
         news_admin_portlet::get_pretty_name
     } -cats {
         api
@@ -16,8 +17,12 @@ aa_register_case -procs {
     } news_portlet_links_names {
         Test diverse link and name procs.
 } {
-    aa_equals "News admin portlet link"         "[news_admin_portlet::link]" ""
+    set portlet_pretty_name [parameter::get_from_package_key \
+                                -package_key [news_portlet::my_package_key] \
+                                -parameter news_portlet_pretty_name]
     aa_equals "News portlet link"               "[news_portlet::link]" ""
+    aa_equals "News portlet pretty_name"        "[news_portlet::get_pretty_name]" "$portlet_pretty_name"
+    aa_equals "News admin portlet link"         "[news_admin_portlet::link]" ""
     aa_equals "News admin portlet pretty name"  "[news_admin_portlet::get_pretty_name]" "#news-portlet.admin_pretty_name#"
 }
 

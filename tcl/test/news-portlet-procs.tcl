@@ -110,6 +110,27 @@ aa_register_case -procs {
     }
 }
 
+aa_register_case -procs {
+        news_portlet::get_summary_length
+    } -cats {
+        api
+        production_safe
+    } news_portlet_get_summary_length {
+        Test the news_portlet::get_summary_length proc.
+} {
+    #
+    # Should be empty, or an integer >= 0
+    #
+    set summary_length [news_portlet::get_summary_length]
+    aa_log "summary_length: $summary_length"
+    if {$summary_length eq "" || [string is entier $summary_length] && $summary_length >= 0} {
+        set length_ok_p true
+    } else {
+        set length_ok_p false
+    }
+    aa_true "Summary length empty or > 0" "$length_ok_p"
+}
+
 # Local variables:
 #    mode: tcl
 #    tcl-indent-level: 4

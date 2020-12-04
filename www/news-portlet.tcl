@@ -67,8 +67,16 @@ set display_item_attribution_p [parameter::get_from_package_key \
 
 if { $inside_comm_p } {
     set package_id $config(package_id)
-    set rss_exists [rss_support::subscription_exists -summary_context_id $package_id -impl_name news]
-    set rss_url "[news_util_get_url $package_id]rss/rss.xml"
+    #
+    # Check if RSS generation is active and a subscription exists
+    #
+    if {[parameter::get_global_value -package_key rss-support -parameter RssGenActiveP]} {
+        set rss_exists_p [rss_support::subscription_exists -summary_context_id $package_id -impl_name news]
+        set rss_url "[news_util_get_url $package_id]rss/rss.xml"
+    } else {
+        set rss_exists_p 0
+    }
+
     set news_url [news_util_get_url $package_id]
 
     if { $display_subgroup_items_p } {

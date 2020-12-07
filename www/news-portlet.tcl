@@ -70,7 +70,7 @@ if { $inside_comm_p } {
     #
     # Check if RSS generation is active and a subscription exists
     #
-    if {[parameter::get_global_value -package_key rss-support -parameter RssGenActiveP]} {
+    if {[parameter::get_global_value -package_key rss-support -parameter RssGenActiveP -default 1]} {
         set rss_exists_p [rss_support::subscription_exists -summary_context_id $package_id -impl_name news]
         set rss_url "[news_util_get_url $package_id]rss/rss.xml"
     } else {

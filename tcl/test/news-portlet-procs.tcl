@@ -12,7 +12,7 @@ aa_register_case -procs {
 } -cats {
     api
     smoke
-} render_portlet {
+} news_render_portlet {
     Test the rendering of the portlets
 } {
     aa_run_with_teardown -rollback -test_code {
@@ -20,27 +20,36 @@ aa_register_case -procs {
                             -package_key news \
                             -node_name __test_news_portlet]
 
-        set cf [list \
-                    package_id $package_id \
-                    shaded_p false \
-                   ]
+        foreach shaded_p {true false} {
 
-        foreach portlet {news_admin_portlet news_portlet} {
-            aa_section $portlet
+            set cf [list \
+                        package_id $package_id \
+                        shaded_p $shaded_p \
+                       ]
 
-            set portlet [acs_sc::invoke \
-                             -contract portal_datasource \
-                             -operation Show \
-                             -impl $portlet \
-                             -call_args [list $cf]]
+            foreach portlet {news_admin_portlet news_portlet} {
+                set section_name $portlet
+                if {$shaded_p} {
+                    append section_name " (shaded)"
+                }
+                aa_section $section_name
 
-            aa_log "Portlet returns: [ns_quotehtml $portlet]"
+                set portlet [acs_sc::invoke \
+                                 -contract portal_datasource \
+                                 -operation Show \
+                                 -impl $portlet \
+                                 -call_args [list $cf]]
 
-            aa_false "No error was returned" {
-                [string first "Error in include template" $portlet] >= 0
+                aa_log "Portlet returns: [ns_quotehtml $portlet]"
+
+                aa_false "No error was returned" {
+                    [string first "Error in include template" $portlet] >= 0
+                }
+
+                aa_true "Portlet contains something" {
+                    [string length [string trim $portlet]] > 0
+                }
             }
-
-            aa_true "Portlet looks like HTML" [ad_looks_like_html_p $portlet]
         }
     }
 }

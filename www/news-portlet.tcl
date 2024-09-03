@@ -23,6 +23,9 @@
 #
 # $Id$
 #
+ad_include_contract {
+    News Portlet
+}
 
 array set config $cf
 set shaded_p $config(shaded_p)
@@ -42,7 +45,7 @@ if {$comm_id ne ""} {
 
 # Should be a list already! XXX rename me!
 set list_of_package_ids $config(package_id)
-set one_instance_p [ad_decode [llength $list_of_package_ids] 1 1 0]
+set one_instance_p [expr {[llength $list_of_package_ids] == 1}]
 
 set display_item_content_p [parameter::get_from_package_key \
     -package_key news-portlet \
@@ -64,12 +67,42 @@ set display_item_attribution_p [parameter::get_from_package_key \
 
 if { $inside_comm_p } {
     set package_id $config(package_id)
-    set rss_exists [rss_support::subscription_exists -summary_context_id $package_id -impl_name news]
-    set rss_url "[news_util_get_url $package_id]rss/rss.xml"
+    #
+    # Check if RSS generation is active and a subscription exists
+    #
+    if {[parameter::get_global_value -package_key rss-support -parameter RssGenActiveP -default 1]} {
+        set rss_exists_p [rss_support::subscription_exists -summary_context_id $package_id -impl_name news]
+        set rss_url "[news_util_get_url $package_id]rss/rss.xml"
+    } else {
+        set rss_exists_p 0
+    }
+
     set news_url [news_util_get_url $package_id]
 
     if { $display_subgroup_items_p } {
-        set subgroup_package_ids [db_list select_subgroup_package_ids {}]
+        set subgroup_package_ids [db_list select_subgroup_package_ids {
+            select package_id
+              from apm_packages p right outer join
+                    ( WITH RECURSIVE site_node_tree AS (
+                        select node_id,
+                               parent_id,
+                               object_id
+                          from site_nodes
+                         where node_id = :root_id
+                     UNION ALL
+                         select c.node_id,
+                                c.parent_id,
+                                c.object_id
+                           from site_node_tree tree,
+                                site_nodes as c
+                          where c.parent_id = tree.node_id
+                    )
+                    select * from site_node_tree n) site_map
+                        on site_map.object_id = p.package_id
+                     where package_key = 'news'
+                       and (site_map.object_id is null
+                            or acs_permission.permission_p(site_map.object_id, :user_id, 'read') = 't')
+        }]
         if {[llength $subgroup_package_ids] > 0} {
             set one_instance_p 0
             lappend list_of_package_ids {*}$subgroup_package_ids

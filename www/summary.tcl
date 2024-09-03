@@ -64,7 +64,7 @@ if { $item_exist_p } {
 set more_link ""
 set summary_length [news_portlet::get_summary_length]
 if { [string length $publish_body] > $summary_length } {
-    set publish_body [string_truncate -len $summary_length -- $publish_body]
+    set publish_body [ad_string_truncate -len $summary_length -- $publish_body]
     set more_link "<p><b>&raquo;</b> <a href=\"$url\">[_ news-portlet.Read_more]</a></p>"
 }
 

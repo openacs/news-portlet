@@ -31,7 +31,7 @@
      pretty_name="News"
      url="@news_url;literal@" >
 </if>
-          <if @rss_exists;literal@ eq 1>
+          <if @rss_exists_p;literal@ true>
             <br>
               <a href="@rss_url@"><img src="/resources/xml.gif" alt="Subscribe via RSS" width="26" height="10" style="border:0; padding-right:3px">#rss-support.Syndication_Feed#</a>
           </if>
